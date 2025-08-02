@@ -153,15 +153,17 @@
         }
         
         .chatbot-window {
-            width: 350px;
-            max-height: 500px;
-            border-radius: 15px;
-            overflow: hidden;
-            transform: scale(0);
-            transform-origin: bottom right;
-            transition: all 0.3s ease;
-            opacity: 0;
-        }
+    width: 90vw;
+    max-width: 350px;
+    max-height: 90vh;
+    border-radius: 15px;
+    overflow: hidden;
+    transform: scale(0);
+    transform-origin: bottom right;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
         
         .chatbot-window.active {
             transform: scale(1);
@@ -175,10 +177,17 @@
         
         /* Mobile Menu */
         .mobile-menu {
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-        }
-        
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(26, 26, 46, 0.98);
+    z-index: 1000;
+}
+
         .mobile-menu.active {
             transform: translateX(0);
         }
@@ -224,8 +233,8 @@
     </nav>
     
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center px-4 py-24">
-        <div class="hero-content p-6 lg:p-12 flex flex-col lg:flex-row items-center justify-between w-full max-w-6xl">
+   <section id="home" class="min-h-screen flex items-center justify-center px-4 py-24">
+    <div class="hero-content p-6 lg:p-12 flex flex-col-reverse lg:flex-row items-center justify-between w-full max-w-6xl">
             <div class="text-center lg:text-left lg:w-1/2 mb-10 lg:mb-0">
                 <h2 class="text-2xl lg:text-3xl mb-2">Hi, I'm</h2>
                 <h1 class="text-4xl lg:text-6xl font-bold mb-4">Subhadip Bera</h1>
@@ -257,16 +266,20 @@
                     </a>
                 </div>
                 
-                <button class="download-btn bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-3 rounded-full font-medium text-lg shadow-lg hover:shadow-xl transition-all duration-300">
-                    Download CV
-                </button>
-                 <button class="hire me bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-3 rounded-full font-medium text-lg shadow-lg hover:shadow-xl transition-all duration-300">
-                    Hair me
-                </button>
+                <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+                    <button class="download-btn bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-semibold px-8 py-3 rounded-full shadow-lg hover:from-pink-500 hover:to-blue-500 transition-all duration-300 flex items-center gap-2">
+                        <i class="fas fa-download"></i>
+                        Download CV
+                    </button>
+                    <button class="hire-me bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 text-white font-semibold px-8 py-3 rounded-full shadow-lg hover:from-purple-500 hover:to-green-400 transition-all duration-300 flex items-center gap-2">
+                        <i class="fas fa-paper-plane"></i>
+                        Hire me
+                    </button>
+                </div>
             </div>
             
             <div class="lg:w-1/2 flex justify-center">
-                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7821fe5e-dae7-4c0f-823f-54ce958d6542.png" alt="Animated portrait of Subhadip Bera - Young Indian software developer with glasses and modern haircut smiling confidently" class="profile-img">
+                <img src="https://i.ibb.co/vCSs68d2/Whats-App-Image-2025-08-02-at-21-54-40-b3759c5c.jpg" alt="Animated portrait of Subhadip Bera -" class="profile-img">
             </div>
         </div>
     </section>
