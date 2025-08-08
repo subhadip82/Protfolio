@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Subhadip - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+    <style>
+        /* --- CSS for about.html (Combined from style.css) --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #007bff; /* Example blue */
+            --secondary-color: #6c757d; /* Example gray */
+            --background-dark: #1a1a2e;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --accent-color: #00bcd4; /* For animations/highlights */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-dark);
+            color: var(--text-light);
+            overflow-x: hidden; /* Prevent horizontal scroll from animations */
+        }
+
+        /* Particles.js background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Ensure it stays behind content */
+            background-color: #1a1a2e; /* Fallback if particles don't load */
+            background-image: url(''); /* Optional: Add a subtle texture */
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 50% 50%;
+        }
+
+        /* --- Navbar (Same as Home Page) --- */
+        .navbar {
+            position: fixed; /* Always visible */
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: rgba(26, 26, 46, 0.9); /* Slightly transparent background */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000; /* Ensure it's on top */
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 400;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        /* Burger Menu for Mobile */
+        .burger-menu {
+            display: none; /* Hidden on desktop */
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 20px;
+            z-index: 1001;
+        }
+
+        .burger-menu div {
+            width: 100%;
+            height: 3px;
+            background-color: var(--text-light);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Active state for burger menu */
+        .burger-menu.active .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        .burger-menu.active .line2 {
+            opacity: 0;
+        }
+        .burger-menu.active .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* Nav links active for mobile */
+        .nav-links.active {
+            transform: translateX(0%);
+        }
+
+        /* --- About Section Specific Styles --- */
+        .about-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 5% 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+            gap: 60px; /* Increased gap for better spacing */
+        }
+
+        .left-about-content {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 30px; /* Add some space from image */
+            opacity: 0; /* For animation */
+            transform: translateX(-50px); /* For animation */
+            animation: slideInLeft 1s forwards 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother animation */
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .left-about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+            text-align: justify; /* Justify text for a cleaner look */
+        }
+
+        .left-about-content p strong {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .left-about-content p em {
+            color: var(--primary-color);
+            font-style: normal; /* Remove italic for emojis if desired */
+        }
+
+        /* Specific styles for social icons on about page if needed */
+        .social-icons {
+            margin-top: 25px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-icons .icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-icons .icon:hover {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 0 20px var(--primary-color);
+        }
+        .about-social {
+            margin-top: 30px;
+        }
+
+
+        .right-about-content {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0; /* For animation */
+            transform: translateX(50px); /* For animation */
+            animation: slideInRight 1s forwards 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother animation */
+        }
+
+        .profile-image-container { /* Re-used from index.html with specific overrides for about page */
+            position: relative;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* background is handled by specific class below */
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), 0 0 60px rgba(0, 0, 0, 0.5); /* Base shadow */
+            animation: rotateBorder 8s linear infinite; /* Base animation */
+        }
+
+        .about-image-container { /* Specific styles for about page image container */
+            width: 450px; /* Slightly larger for the about page */
+            height: 450px;
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color)); /* Different gradient */
+            box-shadow: 0 0 40px rgba(0, 188, 212, 0.6), 0 0 80px rgba(0, 123, 255, 0.6);
+            animation: rotateBorder 10s linear infinite, glowPulse 3s infinite alternate; /* More animations */
+        }
+
+        .profile-image {
+            width: 95%; /* Make image slightly smaller than container to show border */
+            height: 95%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            border: 5px solid var(--background-dark); /* Inner border */
+            transition: transform 0.4s ease-in-out; /* Smooth transition for hover effect */
+        }
+
+        /* --- Chatbot Icon --- */
+        .chatbot-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--accent-color);
+            color: var(--background-dark);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .chatbot-icon:hover {
+            transform: scale(1.1) rotate(10deg);
+            background-color: #00e5ff;
+        }
+
+        /* --- Chatbot Box --- */
+        .chatbot-box {
+            position: fixed;
+            bottom: 100px; /* Above the icon */
+            right: 30px;
+            width: 350px;
+            height: 450px;
+            background-color: var(--background-dark);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0.8) translateY(20px);
+            opacity: 0;
+            pointer-events: none; /* Make it unclickable when hidden */
+            transition: all 0.3s ease-in-out;
+            z-index: 998; /* Below icon but above content */
+        }
+
+        .chatbot-box.active {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .chatbot-header {
+            background-color: var(--primary-color);
+            padding: 15px;
+            color: var(--text-light);
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        .chatbot-header h3 {
+            margin: 0;
+        }
+
+        .close-chatbot {
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .close-chatbot:hover {
+            transform: rotate(90deg);
+        }
+
+        .chatbot-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #2e2e4f; /* Lighter dark background for messages */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .message {
+            padding: 8px 12px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .bot-message {
+            background-color: rgba(255, 255, 255, 0.1);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .user-message {
+            background-color: var(--primary-color);
+            align-self: flex-end;
+            color: var(--text-light);
+            border-bottom-right-radius: 5px;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 15px;
+            gap: 10px;
+            background-color: var(--background-dark);
+        }
+
+        .chatbot-input input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid var(--accent-color);
+            border-radius: 25px;
+            background-color: #3e3e5e;
+            color: var(--text-light);
+            outline: none;
+        }
+
+        .chatbot-input button {
+            background-color: var(--accent-color);
+            color: var(--background-dark);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .chatbot-input button:hover {
+            background-color: #00e5ff;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeInSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes rotateBorder {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Specific animations for About page */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes glowPulse {
+            0% {
+                box-shadow: 0 0 40px rgba(0, 188, 212, 0.6), 0 0 80px rgba(0, 123, 255, 0.6);
+            }
+            50% {
+                box-shadow: 0 0 60px rgba(0, 188, 212, 0.8), 0 0 100px rgba(0, 123, 255, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 40px rgba(0, 188, 212, 0.6), 0 0 80px rgba(0, 123, 255, 0.6);
+            }
+        }
+
+        /* Image hover effects for About page */
+        .about-image-container:hover .profile-image {
+            transform: scale(1.05); /* Slightly zoom in on hover */
+        }
+
+
+        /* --- Media Queries for Responsiveness --- */
+        @media (max-width: 900px) {
+            .navbar {
+                padding: 1rem 3%;
+            }
+
+            .nav-links {
+                position: fixed;
+                right: 0;
+                top: 0;
+                height: 100vh;
+                background-color: var(--background-dark);
+                flex-direction: column;
+                align-items: center;
+                width: 60%;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in;
+                padding-top: 5rem;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+            }
+
+            .nav-links li {
+                margin: 25px 0;
+            }
+
+            .burger-menu {
+                display: flex;
+            }
+
+            /* About page specific responsive adjustments */
+            .about-section {
+                padding-top: 100px; /* Adjust for larger mobile navbar */
+            }
+
+            .about-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .left-about-content, .right-about-content {
+                padding-right: 0; /* Remove padding */
+                min-width: unset; /* Allow it to shrink */
+                width: 100%; /* Take full width */
+            }
+
+            .right-about-content {
+                order: 1; /* Image above text on mobile */
+                margin-bottom: 40px;
+            }
+
+            .left-about-content {
+                order: 2; /* Text below image on mobile */
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .about-image-container {
+                width: 320px;
+                height: 320px;
+            }
+
+            .chatbot-box {
+                width: 90%;
+                right: 5%;
+                left: 5%; /* Center it roughly */
+            }
+        }
+
+        @media (max-width: 600px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .left-about-content p {
+                font-size: 1rem;
+            }
+
+            .about-image-container {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <header class="navbar">
+        <div class="logo">Subhadip Bera</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="achievements.html">Achievements</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+            </ul>
+        </nav>
+        <div class="burger-menu">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </header>
+
+    <main class="about-section">
+        <div class="about-content">
+            <div class="left-about-content">
+                <h2 class="section-title">About Me 👋</h2>
+                <p>Hello! I'm Subhadip Bera, a passionate and dedicated **Software Developer** with a keen eye for creating robust, efficient, and user-friendly applications. My journey in the tech world began with a curiosity for how things work, evolving into a strong desire to build and innovate. 🚀</p>
+                <p>I specialize in **frontend and backend development**, leveraging modern technologies to bring ideas to life. I enjoy solving complex problems and am always eager to learn new technologies and best practices. My goal is to craft exceptional digital experiences that make a real impact. ✨</p>
+                <p>Outside of coding, I'm often exploring new frameworks, contributing to open-source projects, or diving into a good book. I believe in continuous learning and adapting to the ever-evolving landscape of technology. Let's build something amazing together! 💡</p>
+                <p>Feel free to connect with me on my social channels! 👇</p>
+                <div class="social-icons about-social">
+                    <a href="mailto:your.email@example.com" class="icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="https://linkedin.com/in/yourprofile" target="_blank" class="icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/yourprofile" target="_blank" class="icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://instagram.com/yourprofile" target="_blank" class="icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="right-about-content">
+                <div class="profile-image-container about-image-container">
+                    <img id="about-profile-image" src="https://via.placeholder.com/400/007bff/ffffff?text=Subhadip+1" alt="Subhadip Bera Profile" class="profile-image">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="chatbot-icon" id="chatbot-icon">
+        <i class="fas fa-comments"></i>
+    </div>
+
+    <div class="chatbot-box" id="chatbot-box">
+        <div class="chatbot-header">
+            <h3>Chat with Subhadip</h3>
+            <span class="close-chatbot">&times;</span>
+        </div>
+        <div class="chatbot-messages">
+            <p class="message bot-message">Hello! How can I help you today?</p>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" placeholder="Type your message...">
+            <button>Send</button>
+        </div>
+    </div>
+
+    <script>
+        // --- JavaScript for about.html (Combined from script.js) ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Particles.js Initialization ---
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": {
+                            "value": 80,
+                            "density": {
+                                "enable": true,
+                                "value_area": 800
+                            }
+                        },
+                        "color": {
+                            "value": "#ffffff"
+                        },
+                        "shape": {
+                            "type": "circle",
+                            "stroke": {
+                                "width": 0,
+                                "color": "#000000"
+                            },
+                            "polygon": {
+                                "nb_sides": 5
+                            },
+                            "image": {
+                                "src": "img/github.svg",
+                                "width": 100,
+                                "height": 100
+                            }
+                        },
+                        "opacity": {
+                            "value": 0.5,
+                            "random": false,
+                            "anim": {
+                                "enable": false,
+                                "speed": 1,
+                                "opacity_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "size": {
+                            "value": 3,
+                            "random": true,
+                            "anim": {
+                                "enable": false,
+                                "speed": 40,
+                                "size_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "line_linked": {
+                            "enable": true,
+                            "distance": 150,
+                            "color": "#ffffff",
+                            "opacity": 0.4,
+                            "width": 1
+                        },
+                        "move": {
+                            "enable": true,
+                            "speed": 6,
+                            "direction": "none",
+                            "random": false,
+                            "straight": false,
+                            "out_mode": "out",
+                            "bounce": false,
+                            "attract": {
+                                "enable": false,
+                                "rotateX": 600,
+                                "rotateY": 1200
+                            }
+                        }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onhover": {
+                                "enable": true,
+                                "mode": "grab"
+                            },
+                            "onclick": {
+                                "enable": true,
+                                "mode": "push"
+                            },
+                            "resize": true
+                        },
+                        "modes": {
+                            "grab": {
+                                "distance": 140,
+                                "line_linked": {
+                                    "opacity": 1
+                                }
+                            },
+                            "bubble": {
+                                "distance": 400,
+                                "size": 40,
+                                "duration": 2,
+                                "opacity": 8,
+                                "speed": 3
+                            },
+                            "repulse": {
+                                "distance": 200,
+                                "duration": 0.4
+                            },
+                            "push": {
+                                "particles_nb": 4
+                            },
+                            "remove": {
+                                "particles_nb": 2
+                            }
+                        }
+                    },
+                    "retina_detect": true
+                });
+            } else {
+                console.warn("particles.js not found. Make sure the CDN script is correctly linked in your HTML.");
+            }
+
+            // --- Mobile Navbar Toggle ---
+            const burgerMenu = document.querySelector('.burger-menu');
+            const navLinks = document.querySelector('.nav-links');
+
+            burgerMenu.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                burgerMenu.classList.toggle('active'); // Animate burger icon
+            });
+
+            // Close navbar when a link is clicked (for mobile)
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        burgerMenu.classList.remove('active');
+                    }
+                });
+            });
+
+            // --- Chatbot Functionality ---
+            const chatbotIcon = document.getElementById('chatbot-icon');
+            const chatbotBox = document.getElementById('chatbot-box');
+            const closeChatbotBtn = document.querySelector('.close-chatbot');
+            const chatbotMessages = document.querySelector('.chatbot-messages');
+            const chatbotInput = document.querySelector('.chatbot-input input');
+            const chatbotSendBtn = document.querySelector('.chatbot-input button');
+
+            if (chatbotIcon && chatbotBox && closeChatbotBtn && chatbotMessages && chatbotInput && chatbotSendBtn) {
+                chatbotIcon.addEventListener('click', () => {
+                    chatbotBox.classList.toggle('active');
+                    if (chatbotBox.classList.contains('active')) {
+                        chatbotInput.focus(); // Focus on input when opened
+                    }
+                });
+
+                closeChatbotBtn.addEventListener('click', () => {
+                    chatbotBox.classList.remove('active');
+                });
+
+                // Simulate simple chatbot responses
+                const sendChatMessage = () => {
+                    const userMessageText = chatbotInput.value.trim();
+                    if (userMessageText === '') return;
+
+                    // Add user message
+                    const userMessageDiv = document.createElement('p');
+                    userMessageDiv.classList.add('message', 'user-message');
+                    userMessageDiv.textContent = userMessageText;
+                    chatbotMessages.appendChild(userMessageDiv);
+
+                    chatbotInput.value = ''; // Clear input
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight; // Scroll to bottom
+
+                    // Simulate bot response
+                    setTimeout(() => {
+                        const botMessageDiv = document.createElement('p');
+                        botMessageDiv.classList.add('message', 'bot-message');
+                        let botResponse = "I'm sorry, I don't understand that. Please try asking about Subhadip's skills, projects, or how to contact him!";
+
+                        if (userMessageText.toLowerCase().includes('hello') || userMessageText.toLowerCase().includes('hi')) {
+                            botResponse = "Hello there! How can I assist you regarding Subhadip Bera's portfolio?";
+                        } else if (userMessageText.toLowerCase().includes('skill')) {
+                            botResponse = "Subhadip is proficient in HTML, CSS, JavaScript, React, Node.js, and more!";
+                        } else if (userMessageText.toLowerCase().includes('project')) {
+                            botResponse = "You can check out his projects on the 'Projects' page or his GitHub profile!";
+                        } else if (userMessageText.toLowerCase().includes('contact') || userMessageText.toLowerCase().includes('email')) {
+                            botResponse = "You can contact Subhadip via email at your.email@example.com or through his LinkedIn profile.";
+                        } else if (userMessageText.toLowerCase().includes('cv') || userMessageText.toLowerCase().includes('resume')) {
+                            botResponse = "You can download Subhadip's CV by clicking the 'Download CV' button on the home page!";
+                        }
+
+                        botMessageDiv.textContent = botResponse;
+                        chatbotMessages.appendChild(botMessageDiv);
+                        chatbotMessages.scrollTop = chatbotMessages.scrollHeight; // Scroll to bottom again
+                    }, 1000); // 1 second delay for bot response
+                };
+
+                chatbotSendBtn.addEventListener('click', sendChatMessage);
+                chatbotInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        sendChatMessage();
+                    }
+                });
+            } else {
+                console.warn("Chatbot elements not found. Ensure HTML elements with correct IDs/classes are present.");
+            }
+
+
+            // --- About Page Image Hover Effect ---
+            const aboutProfileImage = document.getElementById('about-profile-image');
+            const imagePaths = [
+                'https://via.placeholder.com/400/007bff/ffffff?text=Subhadip+1', // First image
+                'https://via.placeholder.com/400/00bcd4/ffffff?text=Subhadip+2', // Second image
+                'https://via.placeholder.com/400/6c757d/ffffff?text=Subhadip+3', // Third image
+                'https://via.placeholder.com/400/f0ad4e/ffffff?text=Subhadip+4', // Fourth image
+                // Add more image paths here!
+            ];
+            let currentImageIndex = 0;
+            let hoverInterval;
+
+
+
+            
+            if (aboutProfileImage) {
+                aboutProfileImage.addEventListener('mouseenter', () => {
+                    // Start changing image every 500ms on hover
+                    hoverInterval = setInterval(() => {
+                        currentImageIndex = (currentImageIndex + 1) % imagePaths.length;
+                        aboutProfileImage.src = imagePaths[currentImageIndex];
+                    }, 500); // Change image every 0.5 seconds
+                });
+
+                aboutProfileImage.addEventListener('mouseleave', () => {
+                    // Stop changing images and reset to the first one
+                    clearInterval(hoverInterval);
+                    currentImageIndex = 0; // Reset to first image
+                    aboutProfileImage.src = imagePaths[currentImageIndex];
+                });
+            }
+        });
+    </script>
+</body>
+</html>
