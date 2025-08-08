@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education - Subhadip Bera</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+    <style>
+        /* --- CSS for education.html (Combined from style.css and new education styles) --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #007bff; /* Example blue */
+            --secondary-color: #6c757d; /* Example gray */
+            --background-dark: #1a1a2e;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --accent-color: #00bcd4; /* For animations/highlights */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-dark);
+            color: var(--text-light);
+            overflow-x: hidden; /* Prevent horizontal scroll from animations */
+        }
+
+        /* Particles.js background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Ensure it stays behind content */
+            background-color: #1a1a2e; /* Fallback if particles don't load */
+            background-image: url(''); /* Optional: Add a subtle texture */
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 50% 50%;
+        }
+
+        /* --- Navbar (Same as Home Page) --- */
+        .navbar {
+            position: fixed; /* Always visible */
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: rgba(26, 26, 46, 0.9); /* Slightly transparent background */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000; /* Ensure it's on top */
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 400;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        /* Burger Menu for Mobile */
+        .burger-menu {
+            display: none; /* Hidden on desktop */
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 20px;
+            z-index: 1001;
+        }
+
+        .burger-menu div {
+            width: 100%;
+            height: 3px;
+            background-color: var(--text-light);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Active state for burger menu */
+        .burger-menu.active .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        .burger-menu.active .line2 {
+            opacity: 0;
+        }
+        .burger-menu.active .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* Nav links active for mobile */
+        .nav-links.active {
+            transform: translateX(0%);
+        }
+
+        /* --- Education Section Specific Styles --- */
+        .education-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column; /* Stack sections vertically */
+            align-items: center;
+            padding: 100px 5% 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .education-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+            text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInSlideDown 1s forwards 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .education-timeline {
+            display: flex;
+            flex-direction: column;
+            width: 80%; /* Adjust width for content */
+            max-width: 1000px;
+            position: relative;
+        }
+
+        /* Timeline line */
+        .education-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background-color: var(--accent-color);
+            transform: translateX(-2px);
+            animation: drawLine 1.5s forwards 0.8s ease-out;
+        }
+
+        @keyframes drawLine {
+            from { height: 0; }
+            to { height: 100%; }
+        }
+
+        .education-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 60px; /* Space between items */
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInSlideUpDelayed 1s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .education-item:nth-child(even) {
+            flex-direction: row-reverse; /* Alternate sides */
+        }
+
+        .education-item::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            border: 4px solid var(--background-dark);
+            transform: translateX(-50%);
+            z-index: 2;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Delay for individual item animations */
+        .education-item:nth-child(1) { animation-delay: 1.2s; }
+        .education-item:nth-child(2) { animation-delay: 1.7s; }
+        .education-item:nth-child(3) { animation-delay: 2.2s; }
+
+
+        .education-content-wrapper {
+            width: 45%; /* Content takes 45% of width */
+            background-color: rgba(46, 46, 79, 0.8); /* Lighter dark background for content */
+            padding: 25px 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative; /* For the gallery positioning */
+            transform-style: preserve-3d; /* For flip effect */
+            transition: transform 0.6s ease-out;
+            cursor: pointer; /* Indicate interactivity */
+        }
+
+        .education-item:nth-child(odd) .education-content-wrapper {
+            margin-right: 5%; /* Space for the timeline dot */
+        }
+        .education-item:nth-child(even) .education-content-wrapper {
+            margin-left: 5%; /* Space for the timeline dot */
+        }
+
+        .education-content-wrapper h3 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .education-content-wrapper p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 8px;
+            color: #ccc;
+        }
+
+        .education-content-wrapper p strong {
+            color: var(--primary-color);
+        }
+
+        /* --- Photo Gallery on Hover --- */
+        .gallery-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(26, 26, 46, 0.95); /* Darker overlay */
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            flex-wrap: wrap; /* Allow images to wrap */
+            opacity: 0;
+            transform: rotateY(-90deg); /* Initial state for flip animation */
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            backface-visibility: hidden; /* Prevent flickering on flip */
+            z-index: 3; /* Above content */
+        }
+
+        .education-content-wrapper.flipped .gallery-container {
+            opacity: 1;
+            transform: rotateY(0deg);
+        }
+        .education-content-wrapper.flipped .education-details {
+             opacity: 0;
+             transform: rotateY(90deg);
+        }
+
+        .gallery-item {
+            width: 80px; /* Small size for gallery thumbnails */
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--primary-color);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            cursor: pointer;
+            flex-shrink: 0; /* Prevent shrinking when space is tight */
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.1);
+            border-color: var(--accent-color);
+            z-index: 4; /* Bring hovered image to front */
+        }
+
+        /* Large Image Modal (Lightbox-like) */
+        .large-image-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000; /* On top of everything */
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .large-image-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .large-image-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border: 5px solid var(--accent-color);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .large-image-modal.active img {
+            transform: scale(1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: var(--text-light);
+            font-size: 3rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-color);
+            transform: rotate(90deg);
+        }
+
+        /* --- Chatbot Icon --- */
+        .chatbot-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--accent-color);
+            color: var(--background-dark);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .chatbot-icon:hover {
+            transform: scale(1.1) rotate(10deg);
+            background-color: #00e5ff;
+        }
+
+        /* --- Chatbot Box --- */
+        .chatbot-box {
+            position: fixed;
+            bottom: 100px; /* Above the icon */
+            right: 30px;
+            width: 350px;
+            height: 450px;
+            background-color: var(--background-dark);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0.8) translateY(20px);
+            opacity: 0;
+            pointer-events: none; /* Make it unclickable when hidden */
+            transition: all 0.3s ease-in-out;
+            z-index: 998; /* Below icon but above content */
+        }
+
+        .chatbot-box.active {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .chatbot-header {
+            background-color: var(--primary-color);
+            padding: 15px;
+            color: var(--text-light);
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        .chatbot-header h3 {
+            margin: 0;
+        }
+
+        .close-chatbot {
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .close-chatbot:hover {
+            transform: rotate(90deg);
+        }
+
+        .chatbot-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #2e2e4f; /* Lighter dark background for messages */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .message {
+            padding: 8px 12px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .bot-message {
+            background-color: rgba(255, 255, 255, 0.1);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .user-message {
+            background-color: var(--primary-color);
+            align-self: flex-end;
+            color: var(--text-light);
+            border-bottom-right-radius: 5px;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 15px;
+            gap: 10px;
+            background-color: var(--background-dark);
+        }
+
+        .chatbot-input input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid var(--accent-color);
+            border-radius: 25px;
+            background-color: #3e3e5e;
+            color: var(--text-light);
+            outline: none;
+        }
+
+        .chatbot-input button {
+            background-color: var(--accent-color);
+            color: var(--background-dark);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .chatbot-input button:hover {
+            background-color: #00e5ff;
+        }
+
+        /* --- General Animations (used across pages) --- */
+        @keyframes fadeInSlideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInSlideUpDelayed {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes rotateBorder { /* Already in style.css, but ensure it's here */
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- Media Queries for Responsiveness --- */
+        @media (max-width: 900px) {
+            .navbar {
+                padding: 1rem 3%;
+            }
+
+            .nav-links {
+                position: fixed;
+                right: 0;
+                top: 0;
+                height: 100vh;
+                background-color: var(--background-dark);
+                flex-direction: column;
+                align-items: center;
+                width: 60%;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in;
+                padding-top: 5rem;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+            }
+
+            .nav-links li {
+                margin: 25px 0;
+            }
+
+            .burger-menu {
+                display: flex;
+            }
+
+            /* Education page specific responsive adjustments */
+            .education-section {
+                padding-top: 100px;
+            }
+
+            .education-title {
+                font-size: 2.8rem;
+                margin-bottom: 40px;
+            }
+
+            .education-timeline {
+                width: 90%; /* Wider on smaller screens */
+            }
+
+            .education-timeline::before { /* Center timeline on mobile */
+                left: 5%;
+                transform: translateX(0);
+            }
+
+            .education-item {
+                flex-direction: column; /* Stack content and gallery vertically */
+                margin-bottom: 40px;
+                align-items: center; /* Center items for vertical stack */
+            }
+
+            .education-item:nth-child(even) {
+                flex-direction: column; /* Ensure it stays column-wise */
+            }
+
+            .education-item::before { /* Align dot to left timeline */
+                left: 5%;
+                transform: translateX(-50%);
+            }
+
+            .education-content-wrapper {
+                width: 90%; /* Take more width */
+                margin: 0 !important; /* Remove side margins */
+                order: 2; /* Content below gallery on mobile by default */
+            }
+
+            /* Gallery should be above content for mobile sections */
+            .education-item .gallery-container-wrapper {
+                width: 100%; /* Take full width */
+                margin-bottom: 20px;
+                order: 1;
+                display: flex;
+                justify-content: center; /* Center the image in mobile gallery wrapper */
+            }
+
+            .gallery-container {
+                position: relative; /* No absolute positioning needed for mobile display */
+                transform: none !important; /* No flip animation on mobile */
+                opacity: 1 !important; /* Always visible on mobile */
+                height: auto; /* Auto height for content */
+                background-color: transparent; /* Transparent background */
+                box-shadow: none;
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 0;
+            }
+
+            .gallery-item {
+                width: 60px;
+                height: 60px;
+                border: 1px solid var(--primary-color); /* Thinner border for mobile */
+            }
+
+            /* Ensure content wrapper doesn't flip on mobile */
+            .education-content-wrapper.flipped {
+                transform: none !important;
+            }
+            .education-content-wrapper.flipped .education-details {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .education-title {
+                font-size: 2.2rem;
+            }
+
+            .education-content-wrapper h3 {
+                font-size: 1.5rem;
+            }
+
+            .education-content-wrapper p {
+                font-size: 0.95rem;
+            }
+
+            .gallery-item {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <header class="navbar">
+        <div class="logo">Subhadip Bera</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="achievements.html">Achievements</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+            </ul>
+        </nav>
+        <div class="burger-menu">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </header>
+
+    <main class="education-section">
+        <h2 class="education-title">My Educational Journey 🎓</h2>
+
+        <div class="education-timeline">
+            <div class="education-item" data-gallery-images='[
+                "https://via.placeholder.com/150/ff7f50/ffffff?text=Class+10+Pic+1",
+                "https://via.placeholder.com/150/6a5acd/ffffff?text=Class+10+Pic+2",
+                "https://via.placeholder.com/150/20b2aa/ffffff?text=Class+10+Pic+3",
+                "https://via.placeholder.com/150/d8bfd8/ffffff?text=Class+10+Pic+4",
+                "https://via.placeholder.com/150/ff6347/ffffff?text=Class+10+Pic+5"
+            ]'>
+                <div class="education-content-wrapper">
+                    <div class="education-details">
+                        <h3>Secondary Education (Class 10) 📚</h3>
+                        <p><strong>School:</strong> [Your Class 10 School Name]</p>
+                        <p><strong>Address:</strong> [Your Class 10 School Address]</p>
+                        <p><strong>Percentage:</strong> [Your Class 10 Percentage]%</p>
+                        <p><strong>Board:</strong> [Your Class 10 Board, e.g., WBBSE]</p>
+                        <p><strong>Year of Passing:</strong> [Class 10 Passout Year]</p>
+                    </div>
+                    <div class="gallery-container"></div> </div>
+            </div>
+
+            <div class="education-item" data-gallery-images='[
+                "https://via.placeholder.com/150/9acd32/ffffff?text=Class+12+Pic+1",
+                "https://via.placeholder.com/150/4169e1/ffffff?text=Class+12+Pic+2",
+                "https://via.placeholder.com/150/b22222/ffffff?text=Class+12+Pic+3",
+                "https://via.placeholder.com/150/ffd700/ffffff?text=Class+12+Pic+4",
+                "https://via.placeholder.com/150/3cb371/ffffff?text=Class+12+Pic+5"
+            ]'>
+                <div class="education-content-wrapper">
+                    <div class="education-details">
+                        <h3>Higher Secondary Education (Class 12) 🎓</h3>
+                        <p><strong>School:</strong> [Your Class 12 School Name]</p>
+                        <p><strong>Address:</strong> [Your Class 12 School Address]</p>
+                        <p><strong>Percentage:</strong> [Your Class 12 Percentage]%</p>
+                        <p><strong>Board:</strong> [Your Class 12 Board, e.g., WBCHSE]</p>
+                        <p><strong>Year of Passing:</strong> [Class 12 Passout Year]</p>
+                    </div>
+                    <div class="gallery-container"></div>
+                </div>
+            </div>
+
+            <div class="education-item" data-gallery-images='[
+                "https://via.placeholder.com/150/8a2be2/ffffff?text=College+Pic+1",
+                "https://via.placeholder.com/150/dc143c/ffffff?text=College+Pic+2",
+                "https://via.placeholder.com/150/00ffff/ffffff?text=College+Pic+3",
+                "https://via.placeholder.com/150/ff4500/ffffff?text=College+Pic+4",
+                "https://via.placeholder.com/150/7fffd4/ffffff?text=College+Pic+5"
+            ]'>
+                <div class="education-content-wrapper">
+                    <div class="education-details">
+                        <h3>University / College Education 👨‍🎓</h3>
+                        <p><strong>College Name:</strong> [Your College Name]</p>
+                        <p><strong>Course:</strong> [Your Course Name, e.g., Bachelor of Technology in Computer Science]</p>
+                        <p><strong>CGPA / Percentage:</strong> [Your CGPA/Percentage]</p>
+                        <p><strong>Year of Passing:</strong> [College Passout Year]</p>
+                        <p><strong>University:</strong> [Your University Name]</p>
+                    </div>
+                    <div class="gallery-container"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="large-image-modal" id="large-image-modal">
+        <span class="close-modal">&times;</span>
+        <img src="" alt="Large View">
+    </div>
+
+    <div class="chatbot-icon" id="chatbot-icon">
+        <i class="fas fa-comments"></i>
+    </div>
+
+    <div class="chatbot-box" id="chatbot-box">
+        <div class="chatbot-header">
+            <h3>Chat with Subhadip</h3>
+            <span class="close-chatbot">&times;</span>
+        </div>
+        <div class="chatbot-messages">
+            <p class="message bot-message">Hello! How can I help you today?</p>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" placeholder="Type your message...">
+            <button>Send</button>
+        </div>
+    </div>
+
+    <script>
+        // --- JavaScript for education.html (Combined from script.js and new education scripts) ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Particles.js Initialization ---
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                        "color": { "value": "#ffffff" },
+                        "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 }, "image": { "src": "img/github.svg", "width": 100, "height": 100 } },
+                        "opacity": { "value": 0.5, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } },
+                        "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } },
+                        "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
+                        "move": { "enable": true, "speed": 6, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+                        "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 200, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 } }
+                    },
+                    "retina_detect": true
+                });
+            } else {
+                console.warn("particles.js not found. Make sure the CDN script is correctly linked in your HTML.");
+            }
+
+            // --- Mobile Navbar Toggle ---
+            const burgerMenu = document.querySelector('.burger-menu');
+            const navLinks = document.querySelector('.nav-links');
+
+            burgerMenu.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                burgerMenu.classList.toggle('active'); // Animate burger icon
+            });
+
+            // Close navbar when a link is clicked (for mobile)
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        burgerMenu.classList.remove('active');
+                    }
+                });
+            });
+
+            // --- Chatbot Functionality ---
+            const chatbotIcon = document.getElementById('chatbot-icon');
+            const chatbotBox = document.getElementById('chatbot-box');
+            const closeChatbotBtn = document.querySelector('.close-chatbot');
+            const chatbotMessages = document.querySelector('.chatbot-messages');
+            const chatbotInput = document.querySelector('.chatbot-input input');
+            const chatbotSendBtn = document.querySelector('.chatbot-input button');
+
+            if (chatbotIcon && chatbotBox && closeChatbotBtn && chatbotMessages && chatbotInput && chatbotSendBtn) {
+                chatbotIcon.addEventListener('click', () => {
+                    chatbotBox.classList.toggle('active');
+                    if (chatbotBox.classList.contains('active')) {
+                        chatbotInput.focus(); // Focus on input when opened
+                    }
+                });
+
+                closeChatbotBtn.addEventListener('click', () => {
+                    chatbotBox.classList.remove('active');
+                });
+
+                const sendChatMessage = () => {
+                    const userMessageText = chatbotInput.value.trim();
+                    if (userMessageText === '') return;
+
+                    const userMessageDiv = document.createElement('p');
+                    userMessageDiv.classList.add('message', 'user-message');
+                    userMessageDiv.textContent = userMessageText;
+                    chatbotMessages.appendChild(userMessageDiv);
+
+                    chatbotInput.value = '';
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+                    setTimeout(() => {
+                        const botMessageDiv = document.createElement('p');
+                        botMessageDiv.classList.add('message', 'bot-message');
+                        let botResponse = "I'm sorry, I don't understand that. Please try asking about Subhadip's skills, projects, or how to contact him!";
+
+                        if (userMessageText.toLowerCase().includes('hello') || userMessageText.toLowerCase().includes('hi')) {
+                            botResponse = "Hello there! How can I assist you regarding Subhadip Bera's portfolio?";
+                        } else if (userMessageText.toLowerCase().includes('skill')) {
+                            botResponse = "Subhadip is proficient in HTML, CSS, JavaScript, React, Node.js, and more!";
+                        } else if (userMessageText.toLowerCase().includes('project')) {
+                            botResponse = "You can check out his projects on the 'Projects' page or his GitHub profile!";
+                        } else if (userMessageText.toLowerCase().includes('contact') || userMessageText.toLowerCase().includes('email')) {
+                            botResponse = "You can contact Subhadip via email at your.email@example.com or through his LinkedIn profile.";
+                        } else if (userMessageText.toLowerCase().includes('cv') || userMessageText.toLowerCase().includes('resume')) {
+                            botResponse = "You can download Subhadip's CV by clicking the 'Download CV' button on the home page!";
+                        }
+
+                        botMessageDiv.textContent = botResponse;
+                        chatbotMessages.appendChild(botMessageDiv);
+                        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                    }, 1000);
+                };
+
+                chatbotSendBtn.addEventListener('click', sendChatMessage);
+                chatbotInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        sendChatMessage();
+                    }
+                });
+            } else {
+                console.warn("Chatbot elements not found. Ensure HTML elements with correct IDs/classes are present.");
+            }
+
+            // --- Education Page Photo Gallery & Flip Effect ---
+            const educationItems = document.querySelectorAll('.education-item');
+            const largeImageModal = document.getElementById('large-image-modal');
+            const modalImage = largeImageModal ? largeImageModal.querySelector('img') : null;
+            const closeModalBtn = largeImageModal ? largeImageModal.querySelector('.close-modal') : null;
+
+            educationItems.forEach(item => {
+                const contentWrapper = item.querySelector('.education-content-wrapper');
+                const galleryContainer = item.querySelector('.gallery-container');
+                const educationDetails = item.querySelector('.education-details');
+                const imagePathsData = JSON.parse(item.dataset.galleryImages); // Get image paths from data attribute
+
+                // Populate gallery
+                imagePathsData.forEach(imgPath => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.classList.add('gallery-item');
+                    const img = document.createElement('img');
+                    img.src = imgPath;
+                    img.alt = 'Education Photo';
+                    galleryItem.appendChild(img);
+
+                    // Add click listener for large view
+                    galleryItem.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Prevent card from flipping back
+                        if (largeImageModal && modalImage) {
+                            modalImage.src = imgPath;
+                            largeImageModal.classList.add('active');
+                        }
+                    });
+                    galleryContainer.appendChild(galleryItem);
+                });
+
+                // Flip effect on hover
+                let hoverTimeout;
+                contentWrapper.addEventListener('mouseenter', () => {
+                    if (window.innerWidth > 900) { // Only enable flip on larger screens
+                        clearTimeout(hoverTimeout);
+                        hoverTimeout = setTimeout(() => {
+                            contentWrapper.classList.add('flipped');
+                        }, 300); // Small delay before flip
+                    }
+                });
+
+                contentWrapper.addEventListener('mouseleave', () => {
+                    if (window.innerWidth > 900) { // Only disable flip on larger screens
+                        clearTimeout(hoverTimeout);
+                        contentWrapper.classList.remove('flipped');
+                    }
+                });
+            });
+
+            // Close modal functionality
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', () => {
+                    if (largeImageModal) {
+                        largeImageModal.classList.remove('active');
+                    }
+                });
+            }
+
+            if (largeImageModal) {
+                largeImageModal.addEventListener('click', (e) => {
+                    // Close modal if clicking outside the image
+                    if (e.target === largeImageModal) {
+                        largeImageModal.classList.remove('active');
+                    }
+                });
+            }
+
+        });
+    </script>
+</body>
+</html>
