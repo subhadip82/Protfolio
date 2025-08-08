@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // These are handled by CSS animations (`fadeInSlideUp`) for simplicity.
     // If you want a typewriter effect, you'd modify or remove the CSS animations
     // and use this JS instead:
-    /*
+   
     setTimeout(() => {
         greetingElement.textContent = ''; // Clear initial text for typewriter
         typeWriter(greetingElement, greetingText, 0, () => {
@@ -281,5 +281,5 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 500); // Delay before typing profession
         });
     }, 1200); // Delay before starting typewriter effect after page load
-    */
+    
 });
