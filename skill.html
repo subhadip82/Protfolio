@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Skills - Subhadip Bera</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+    <style>
+        /* --- CSS for skills.html (Combined from common styles and new skills styles) --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #007bff; /* Example blue */
+            --secondary-color: #6c757d; /* Example gray */
+            --background-dark: #1a1a2e;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --accent-color: #00bcd4; /* For animations/highlights */
+            --section-bg-dark: #2a2a4a;
+            --section-bg-light: #3a3a5a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-dark);
+            color: var(--text-light);
+            overflow: hidden; /* Prevent scroll bars for main page */
+        }
+
+        /* Particles.js background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Ensure it stays behind content */
+            background-color: #1a1a2e; /* Fallback if particles don't load */
+            background-image: url(''); /* Optional: Add a subtle texture */
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 50% 50%;
+        }
+
+        /* --- Navbar (Modified for Mobile Responsiveness) --- */
+        .navbar {
+            position: fixed; /* Always visible */
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: rgba(26, 26, 46, 0.9); /* Slightly transparent background */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000; /* Ensure it's on top */
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 400;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        /* Burger Menu for Mobile */
+        .burger-menu {
+            display: none; /* Hidden on desktop */
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 20px;
+            z-index: 1001; /* Ensure it's above everything when active */
+        }
+
+        .burger-menu div {
+            width: 100%;
+            height: 3px;
+            background-color: var(--text-light);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Active state for burger menu */
+        .burger-menu.active .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        .burger-menu.active .line2 {
+            opacity: 0;
+        }
+        .burger-menu.active .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* --- Mobile Navigation Styles (only active on smaller screens) --- */
+        @media (max-width: 768px) { /* Adjust breakpoint as needed, often 768px for tablets/mobiles */
+            .nav-links {
+                position: absolute;
+                right: 0;
+                top: 80px; /* Below the navbar */
+                height: calc(100vh - 80px); /* Take up remaining viewport height */
+                background: rgba(26, 26, 46, 0.95); /* Slightly darker, full opacity background */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 70%; /* Occupy 70% of screen width */
+                transform: translateX(100%); /* Start off-screen to the right */
+                transition: transform 0.5s ease-in-out;
+                padding-top: 2rem; /* Add some padding at the top */
+            }
+
+            .nav-links li {
+                margin: 1.5rem 0; /* Vertical spacing for mobile links */
+            }
+
+            .nav-links a {
+                font-size: 1.5rem; /* Larger font for mobile */
+            }
+
+            .nav-links.active {
+                transform: translateX(0%); /* Slide into view */
+            }
+
+            .burger-menu {
+                display: flex; /* Show burger menu on mobile */
+            }
+        }
+
+        /* --- Main Skills Overview Section (Grid Layout) --- */
+        .skills-overview-page {
+            position: absolute; /* Allows for full-screen overlay */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding-top: 80px; /* Space for fixed navbar */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Align title top */
+            opacity: 1;
+            transition: opacity 0.5s ease-out;
+            z-index: 10; /* Above particles, below detail page */
+        }
+
+        .skills-overview-page.hidden {
+            opacity: 0;
+            pointer-events: none; /* Make non-interactive when hidden */
+        }
+
+        .skills-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInSlideDown 1s forwards 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 10;
+        }
+
+        .skill-sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid columns */
+            gap: 30px; /* Space between cards */
+            padding: 20px;
+            max-width: 1200px; /* Max width for the grid */
+            width: 90%; /* Occupy most of the width */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .skill-section-card {
+            background: linear-gradient(135deg, var(--section-bg-dark), var(--section-bg-light));
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            opacity: 0; /* Fade in */
+            animation: cardFadeIn 0.8s ease-out forwards;
+            height: 180px; /* Fixed height for consistent grid items */
+            text-align: center;
+        }
+
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .skill-section-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+        }
+
+        .skill-section-card i {
+            font-size: 3.5rem;
+            color: var(--accent-color); /* Default icon color */
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .skill-section-card:hover i {
+             color: var(--text-light); /* Icon color on hover */
+        }
+
+        .section-title-front {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-light); /* Default text color */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            transition: color 0.3s ease;
+        }
+
+        .skill-section-card:hover .section-title-front {
+            color: var(--text-light); /* Text color on hover */
+        }
+
+
+        /* --- Skill Detail Page Overlay --- */
+        .skill-detail-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 26, 46, 0.95); /* Slightly darker overlay */
+            z-index: 50; /* Above main skills, below navbar/chatbot */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 80px; /* Space for navbar */
+            transform: translateY(100%); /* Start off-screen below */
+            opacity: 0;
+            visibility: hidden; /* Hide completely when not active */
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.6s ease-out, visibility 0s 0.6s; /* Delay visibility change */
+            overflow-y: auto; /* Allow scrolling if content overflows */
+        }
+
+        .skill-detail-page.active {
+            transform: translateY(0); /* Slide up into view */
+            opacity: 1;
+            visibility: visible;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.6s ease-out, visibility 0s 0s; /* No delay on visibility */
+        }
+
+        .detail-page-header {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 20px 5%;
+            margin-bottom: 20px;
+        }
+
+        .back-button {
+            background-color: var(--accent-color);
+            color: var(--background-dark);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-button:hover {
+            background-color: #00e5ff;
+            transform: translateY(-3px);
+        }
+
+        .detail-page-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px; /* Moved here from detail-page-header */
+            margin-top: 20px; /* Adjust spacing */
+        }
+
+        .individual-skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Larger items for detail page */
+            gap: 30px;
+            justify-content: center;
+            align-items: flex-start;
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto 50px auto; /* Margin at bottom for scroll */
+            padding-bottom: 20px; /* Ensure space for scroll bar */
+        }
+
+        .individual-skill {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            transition: transform 0.2s ease, background 0.2s ease;
+            opacity: 0; /* Fade in later */
+            animation: fadeInScale 0.4s ease-out forwards;
+        }
+
+        .individual-skill:hover {
+            background: rgba(0, 0, 0, 0.5);
+            transform: translateY(-8px) scale(1.03);
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .individual-skill img {
+            width: 70px; /* Larger images on detail page */
+            height: 70px;
+            object-fit: contain;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 8px rgba(0,0,0,0.6));
+        }
+
+        .individual-skill span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-light);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            text-align: center;
+            line-height: 1.3;
+        }
+
+
+        /* --- Chatbot Icon --- */
+        .chatbot-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--accent-color);
+            color: var(--background-dark);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .chatbot-icon:hover {
+            transform: scale(1.1) rotate(10deg);
+            background-color: #00e5ff;
+        }
+
+        /* --- Chatbot Box --- */
+        .chatbot-box {
+            position: fixed;
+            bottom: 100px; /* Above the icon */
+            right: 30px;
+            width: 350px;
+            height: 450px;
+            background-color: var(--background-dark);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0.8) translateY(20px);
+            opacity: 0;
+            pointer-events: none; /* Make it unclickable when hidden */
+            transition: all 0.3s ease-in-out;
+            z-index: 998; /* Below icon but above content */
+        }
+
+        .chatbot-box.active {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .chatbot-header {
+            background-color: var(--primary-color);
+            padding: 15px;
+            color: var(--text-light);
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        .chatbot-header h3 {
+            margin: 0;
+        }
+
+        .close-chatbot {
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .close-chatbot:hover {
+            transform: rotate(90deg);
+        }
+
+        .chatbot-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #2e2e4f; /* Lighter dark background for messages */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .message {
+            padding: 8px 12px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .bot-message {
+            background-color: rgba(255, 255, 255, 0.1);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .user-message {
+            background-color: var(--primary-color);
+            align-self: flex-end;
+            color: var(--text-light);
+            border-bottom-right-radius: 5px;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 15px;
+            gap: 10px;
+            background-color: var(--background-dark);
+        }
+
+        .chatbot-input input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid var(--accent-color);
+            border-radius: 25px;
+            background-color: #3e3e5e;
+            color: var(--text-light);
+            outline: none;
+        }
+
+        .chatbot-input button {
+            background-color: var(--accent-color);
+            color: var(--background-dark);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .chatbot-input button:hover {
+            background-color: #00e5ff;
+        }
+
+        /* --- General Animations (used across pages) --- */
+        @keyframes fadeInSlideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Media Queries for Responsiveness (Skills Section Specific) --- */
+        @media (max-width: 900px) {
+            .skills-title, .detail-page-title {
+                font-size: 2.8rem;
+                margin-bottom: 20px;
+            }
+
+            .skill-sections-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+                width: 95%;
+            }
+
+            .skill-section-card {
+                padding: 20px 15px;
+                height: 160px;
+            }
+
+            .skill-section-card i {
+                font-size: 3rem;
+                margin-bottom: 10px;
+            }
+
+            .section-title-front {
+                font-size: 1.5rem;
+            }
+
+            .detail-page-header {
+                padding: 15px 3%;
+            }
+
+            .back-button {
+                font-size: 1rem;
+                padding: 8px 15px;
+            }
+
+            .individual-skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 20px;
+            }
+
+            .individual-skill img {
+                width: 50px;
+                height: 50px;
+            }
+
+            .individual-skill span {
+                font-size: 0.85rem;
+            }
+
+            .chatbot-box {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+                bottom: 80px;
+            }
+
+            .chatbot-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.8rem;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .skills-title, .detail-page-title {
+                font-size: 2.2rem;
+            }
+
+            .skill-sections-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+                width: 98%;
+            }
+
+            .skill-section-card {
+                padding: 15px 10px;
+                height: 140px;
+            }
+
+            .skill-section-card i {
+                font-size: 2.5rem;
+                margin-bottom: 8px;
+            }
+
+            .section-title-front {
+                font-size: 1.3rem;
+            }
+
+            .detail-page-title {
+                margin-bottom: 20px;
+            }
+
+            .individual-skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+                gap: 15px;
+            }
+
+            .individual-skill img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .individual-skill span {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <header class="navbar">
+        <div class="logo">Subhadip Bera</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="achievements.html">Achievements</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+            </ul>
+        </nav>
+        <div class="burger-menu">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </header>
+
+    <main class="skills-overview-page" id="skills-overview-page">
+        <h2 class="skills-title">My Skills</h2>
+        <div class="skill-sections-grid" id="skill-sections-grid">
+            </div>
+    </main>
+
+    <div class="skill-detail-page" id="skill-detail-page">
+        <div class="detail-page-header">
+            <button class="back-button" id="back-to-overview">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+        </div>
+        <h2 class="detail-page-title" id="detail-page-title"></h2>
+        <div class="individual-skills-grid" id="individual-skills-detail-grid">
+            </div>
+    </div>
+
+    <div class="chatbot-icon" id="chatbot-icon">
+        <i class="fas fa-comments"></i>
+    </div>
+
+    <div class="chatbot-box" id="chatbot-box">
+        <div class="chatbot-header">
+            <h3>Chat with Subhadip</h3>
+            <span class="close-chatbot">&times;</span>
+        </div>
+        <div class="chatbot-messages">
+            <p class="message bot-message">Hello! How can I help you today?</p>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" placeholder="Type your message...">
+            <button>Send</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Particles.js Initialization ---
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#ffffff" }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 }, "image": { "src": "img/github.svg", "width": 100, "height": 100 } }, "opacity": { "value": 0.5, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } }, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 6, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
+                    "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 200, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 } }
+                    },
+                    "retina_detect": true
+                });
+            } else {
+                console.warn("particles.js not found. Make sure the CDN script is correctly linked in your HTML.");
+            }
+
+            // --- Mobile Navbar Toggle (Updated) ---
+            const burgerMenu = document.querySelector('.burger-menu');
+            const navLinks = document.querySelector('.nav-links');
+
+            burgerMenu.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                burgerMenu.classList.toggle('active'); // Animate burger icon
+                // Optional: Disable scroll when mobile nav is open
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'hidden';
+            });
+
+            // Close navbar when a link is clicked (for mobile)
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        burgerMenu.classList.remove('active');
+                        document.body.style.overflow = 'hidden'; // Re-enable body scroll
+                    }
+                });
+            });
+
+            // --- Chatbot Functionality ---
+            const chatbotIcon = document.getElementById('chatbot-icon');
+            const chatbotBox = document.getElementById('chatbot-box');
+            const closeChatbotBtn = document.querySelector('.close-chatbot');
+            const chatbotMessages = document.querySelector('.chatbot-messages');
+            const chatbotInput = document.querySelector('.chatbot-input input');
+            const chatbotSendBtn = document.querySelector('.chatbot-input button');
+
+            if (chatbotIcon && chatbotBox && closeChatbotBtn && chatbotMessages && chatbotInput && chatbotSendBtn) {
+                chatbotIcon.addEventListener('click', () => {
+                    chatbotBox.classList.toggle('active');
+                    if (chatbotBox.classList.contains('active')) {
+                        chatbotInput.focus(); // Focus on input when opened
+                    }
+                });
+
+                closeChatbotBtn.addEventListener('click', () => {
+                    chatbotBox.classList.remove('active');
+                });
+
+                const sendChatMessage = () => {
+                    const userMessageText = chatbotInput.value.trim();
+                    if (userMessageText === '') return;
+
+                    const userMessageDiv = document.createElement('p');
+                    userMessageDiv.classList.add('message', 'user-message');
+                    userMessageDiv.textContent = userMessageText;
+                    chatbotMessages.appendChild(userMessageDiv);
+
+                    chatbotInput.value = '';
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+                    setTimeout(() => {
+                        const botMessageDiv = document.createElement('p');
+                        botMessageDiv.classList.add('message', 'bot-message');
+                        let botResponse = "I'm sorry, I don't understand that. Please try asking about Subhadip's skills, projects, or how to contact him!";
+
+                        if (userMessageText.toLowerCase().includes('hello') || userMessageText.toLowerCase().includes('hi')) {
+                            botResponse = "Hello there! How can I assist you regarding Subhadip Bera's portfolio?";
+                        } else if (userMessageText.toLowerCase().includes('skill')) {
+                            botResponse = "Subhadip is proficient in HTML, CSS, JavaScript, React, Node.js, and many more! Check out the skills page for details.";
+                        } else if (userMessageText.toLowerCase().includes('project')) {
+                            botResponse = "You can check out his projects on the 'Projects' page or his GitHub profile!";
+                        } else if (userMessageText.toLowerCase().includes('contact') || userMessageText.toLowerCase().includes('email')) {
+                            botResponse = "You can contact Subhadip via email at your.email@example.com or through his LinkedIn profile."; // UPDATE THIS EMAIL!
+                        } else if (userMessageText.toLowerCase().includes('cv') || userMessageText.toLowerCase().includes('resume')) {
+                            botResponse = "You can download Subhadip's CV by clicking the 'Download CV' button on the home page!";
+                        }
+
+                        botMessageDiv.textContent = botResponse;
+                        chatbotMessages.appendChild(botMessageDiv);
+                        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                    }, 1000);
+                };
+
+                chatbotSendBtn.addEventListener('click', sendChatMessage);
+                chatbotInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        sendChatMessage();
+                    }
+                });
+            } else {
+                console.warn("Chatbot elements not found. Ensure HTML elements with correct IDs/classes are present.");
+            }
+
+            // --- Skills Page Logic (Grid Layout & Detail Page Overlay) ---
+
+            // Data structure for skills with placeholder images, organized by section
+            const skillsData = {
+                languages: {
+                    title: 'Languages',
+                    icon: 'fas fa-code', // Font Awesome icon for section
+                    skills: [
+                        { name: 'Java', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg' },
+                        { name: 'C', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg' },
+                        { name: 'HTML', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg' },
+                        { name: 'JavaScript', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg' },
+                        { name: 'SQL', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg' }
+                    ]
+                },
+                frameworks: {
+                    title: 'Frameworks',
+                    icon: 'fas fa-cogs',
+                    skills: [
+                        { name: 'Scikit', img: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg' },
+                        { name: 'CSS', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg' },
+                        { name: 'Node.js', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg' },
+                        { name: 'Express.js', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg' },
+                        { name: 'React', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg' },
+                        { name: 'REST-API', img: 'https://img.icons8.com/ios-filled/50/ffffff/api.png' },
+                        { name: 'Bootstrap', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg' }
+                    ]
+                },
+                tools: {
+                    title: 'Tools',
+                    icon: 'fas fa-tools',
+                    skills: [
+                        { name: 'Docker', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg' },
+                        { name: 'GIT', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg' },
+                        { name: 'MySQL', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg' },
+                        { name: 'Figma', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg' }
+                    ]
+                },
+                platforms: {
+                    title: 'Platforms',
+                    icon: 'fas fa-server',
+                    skills: [
+                        { name: 'Linux', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg' },
+                        { name: 'Web', img: 'https://img.icons8.com/ios-filled/50/ffffff/world-globe.png' },
+                        { name: 'Windows', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows8/windows8-original.svg' },
+                        { name: 'Arduino', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/arduino/arduino-original.svg' },
+                        { name: 'AWS', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original.svg' },
+                        { name: 'Google Cloud', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg' }
+                    ]
+                },
+                databases: {
+                    title: 'Databases',
+                    icon: 'fas fa-database',
+                    skills: [
+                        { name: 'SQL', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg' },
+                        { name: 'MongoDB', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg' },
+                        { name: 'Oracle 11g', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/oracle/oracle-original.svg' }
+                    ]
+                },
+                softskills: {
+                    title: 'Soft Skills',
+                    icon: 'fas fa-user-tie',
+                    skills: [
+                        { name: 'Leadership', img: 'https://img.icons8.com/ios-filled/50/ffffff/leadership.png' },
+                        { name: 'Event Management', img: 'https://img.icons8.com/ios-filled/50/ffffff/calendar--v1.png' },
+                        { name: 'Writing', img: 'https://img.icons8.com/ios-filled/50/ffffff/scribble.png' },
+                        { name: 'Public Speaking', img: 'https://img.icons8.com/ios-filled/50/ffffff/speaker.png' },
+                        { name: 'Time Management', img: 'https://img.icons8.com/ios-filled/50/ffffff/time-management.png' }
+                    ]
+                }
+            };
+
+            const skillsOverviewPage = document.getElementById('skills-overview-page');
+            const skillSectionsGrid = document.getElementById('skill-sections-grid');
+            const skillDetailPage = document.getElementById('skill-detail-page');
+            const detailPageTitle = document.getElementById('detail-page-title');
+            const individualSkillsDetailGrid = document.getElementById('individual-skills-detail-grid');
+            const backToOverviewButton = document.getElementById('back-to-overview');
+
+            // Function to create a main skill section card
+            function createSkillSectionCard(sectionKey, sectionData) {
+                const card = document.createElement('div');
+                card.classList.add('skill-section-card');
+                card.dataset.section = sectionKey; // Store section key for later lookup
+
+                card.innerHTML = `
+                    <i class="${sectionData.icon}"></i>
+                    <span class="section-title-front">${sectionData.title}</span>
+                `;
+
+                // Event listener to open the detail page
+                card.addEventListener('click', () => {
+                    showSkillDetailPage(sectionData);
+                });
+
+                return card;
+            }
+
+            // Function to populate and show the skill detail page
+            function showSkillDetailPage(sectionData) {
+                // Set title
+                detailPageTitle.textContent = sectionData.title;
+
+                // Clear previous skills
+                individualSkillsDetailGrid.innerHTML = '';
+
+                // Populate individual skills
+                sectionData.skills.forEach((skill, index) => {
+                    const skillDiv = document.createElement('div');
+                    skillDiv.classList.add('individual-skill');
+                    skillDiv.innerHTML = `
+                        <img src="${skill.img}" alt="${skill.name} logo">
+                        <span>${skill.name}</span>
+                    `;
+                    skillDiv.style.animationDelay = `${index * 0.05}s`; // Stagger animation
+                    individualSkillsDetailGrid.appendChild(skillDiv);
+                });
+
+                // Hide the overview page and show the detail page
+                skillsOverviewPage.classList.add('hidden');
+                skillDetailPage.classList.add('active');
+            }
+
+            // Function to go back to the overview page
+            backToOverviewButton.addEventListener('click', () => {
+                skillDetailPage.classList.remove('active');
+                skillsOverviewPage.classList.remove('hidden');
+                // Optional: Scroll to top of overview page after returning
+                skillsOverviewPage.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+
+            // Populate main skill section cards
+            Object.keys(skillsData).forEach((sectionKey, index) => {
+                const cardEl = createSkillSectionCard(sectionKey, skillsData[sectionKey]);
+                // Stagger animation for main cards
+                cardEl.style.animationDelay = `${index * 0.1}s`;
+                skillSectionsGrid.appendChild(cardEl);
+            });
+
+            // Initial setup for the skills overview page to appear
+            // The skills-title animation already handles its fade-in.
+            // Cards have their own fade-in animation.
+        });
+    </script>
+</body>
+</html>
