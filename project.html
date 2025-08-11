@@ -132,7 +132,11 @@
                 position: fixed;
                 right: 0;
                 top: 80px;
-                height: calc(100vh - 80px);
+                /* FIX: Changed height to min-height and added overflow-y: auto */
+                min-height: calc(100vh - 80px); /* Ensure it takes at least this much height */
+                max-height: calc(100vh - 80px); /* Prevent it from exceeding viewport height */
+                overflow-y: auto; /* Allow scrolling if content overflows */
+                -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
                 background: rgba(26, 26, 46, 0.95);
                 display: flex;
                 flex-direction: column;
@@ -141,6 +145,7 @@
                 transform: translateX(100%);
                 transition: transform 0.5s ease-in-out;
                 padding-top: 2rem;
+                padding-bottom: 2rem; /* Added padding at the bottom */
             }
 
             .nav-links li {
@@ -162,7 +167,8 @@
 
         /* --- Main Projects Section --- */
         .projects-page {
-            padding-top: 120px; /* More space for fixed navbar and title */
+            /* FIX: Adjusted padding-top to ensure content is below the fixed navbar */
+            padding-top: 100px; /* Space for fixed 80px navbar + 20px buffer */
             padding-bottom: 50px;
             min-height: 100vh; /* Ensure it covers at least full viewport height */
             display: flex;
