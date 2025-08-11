@@ -32,7 +32,9 @@
         body {
             background-color: var(--background-dark);
             color: var(--text-light);
-            overflow: hidden; /* Prevent scroll bars for main page */
+            /* --- MODIFIED: Allow vertical scrolling for the whole page --- */
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-y: auto;   /* Allow vertical scroll */
         }
 
         /* Particles.js background */
@@ -63,6 +65,7 @@
             background: rgba(26, 26, 46, 0.9); /* Slightly transparent background */
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
             z-index: 1000; /* Ensure it's on top */
+            height: 80px; /* Fixed height for consistent spacing */
         }
 
         .logo {
@@ -128,7 +131,7 @@
         /* --- Mobile Navigation Styles (only active on smaller screens) --- */
         @media (max-width: 768px) { /* Adjust breakpoint as needed, often 768px for tablets/mobiles */
             .nav-links {
-                position: absolute;
+                position: fixed; /* Changed to fixed to cover the entire right side */
                 right: 0;
                 top: 80px; /* Below the navbar */
                 height: calc(100vh - 80px); /* Take up remaining viewport height */
@@ -165,7 +168,9 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            /* --- MODIFIED: Ensure it can scroll if content overflows --- */
+            min-height: 100%; /* Use min-height to ensure it extends if needed */
+            height: auto; /* Let height adjust to content, min-height ensures initial coverage */
             padding-top: 80px; /* Space for fixed navbar */
             display: flex;
             flex-direction: column;
@@ -174,11 +179,15 @@
             opacity: 1;
             transition: opacity 0.5s ease-out;
             z-index: 10; /* Above particles, below detail page */
+            /* --- ADDED: Allow internal scrolling if content overflows --- */
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
         }
 
         .skills-overview-page.hidden {
             opacity: 0;
             pointer-events: none; /* Make non-interactive when hidden */
+            overflow-y: hidden; /* Hide scrollbar when page is hidden */
         }
 
         .skills-title {
@@ -704,7 +713,7 @@
                 console.warn("particles.js not found. Make sure the CDN script is correctly linked in your HTML.");
             }
 
-            // --- Mobile Navbar Toggle (Updated) ---
+            // --- Mobile Navbar Toggle ---
             const burgerMenu = document.querySelector('.burger-menu');
             const navLinks = document.querySelector('.nav-links');
 
@@ -712,7 +721,7 @@
                 navLinks.classList.toggle('active');
                 burgerMenu.classList.toggle('active'); // Animate burger icon
                 // Optional: Disable scroll when mobile nav is open
-                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'hidden';
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto'; // Change to 'auto'
             });
 
             // Close navbar when a link is clicked (for mobile)
@@ -721,7 +730,7 @@
                     if (navLinks.classList.contains('active')) {
                         navLinks.classList.remove('active');
                         burgerMenu.classList.remove('active');
-                        document.body.style.overflow = 'hidden'; // Re-enable body scroll
+                        document.body.style.overflow = 'auto'; // Re-enable body scroll
                     }
                 });
             });
