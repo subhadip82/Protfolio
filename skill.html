@@ -32,7 +32,6 @@
         body {
             background-color: var(--background-dark);
             color: var(--text-light);
-            /* --- MODIFIED: Allow vertical scrolling for the whole page --- */
             overflow-x: hidden; /* Prevent horizontal scroll */
             overflow-y: auto;   /* Allow vertical scroll */
         }
@@ -134,7 +133,11 @@
                 position: fixed; /* Changed to fixed to cover the entire right side */
                 right: 0;
                 top: 80px; /* Below the navbar */
-                height: calc(100vh - 80px); /* Take up remaining viewport height */
+                /* FIX: Changed height to min-height and added overflow-y: auto */
+                min-height: calc(100vh - 80px); /* Ensure it takes at least this much height */
+                max-height: calc(100vh - 80px); /* Prevent it from exceeding viewport height */
+                overflow-y: auto; /* Allow scrolling if content overflows */
+                -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
                 background: rgba(26, 26, 46, 0.95); /* Slightly darker, full opacity background */
                 display: flex;
                 flex-direction: column;
@@ -143,6 +146,7 @@
                 transform: translateX(100%); /* Start off-screen to the right */
                 transition: transform 0.5s ease-in-out;
                 padding-top: 2rem; /* Add some padding at the top */
+                padding-bottom: 2rem; /* Add some padding at the bottom for scrollable content */
             }
 
             .nav-links li {
@@ -164,14 +168,12 @@
 
         /* --- Main Skills Overview Section (Grid Layout) --- */
         .skills-overview-page {
-            position: absolute; /* Allows for full-screen overlay */
-            top: 0;
-            left: 0;
+            position: relative; /* Changed from absolute to relative to better manage flow */
+            /* FIX: Added padding-top to ensure content is below the fixed navbar */
+            padding-top: 100px; /* Space for fixed 80px navbar + 20px buffer */
+            padding-bottom: 50px; /* Ensure space at the bottom */
             width: 100%;
-            /* --- MODIFIED: Ensure it can scroll if content overflows --- */
-            min-height: 100%; /* Use min-height to ensure it extends if needed */
-            height: auto; /* Let height adjust to content, min-height ensures initial coverage */
-            padding-top: 80px; /* Space for fixed navbar */
+            min-height: calc(100vh - 80px); /* Ensure it fills screen below navbar */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -179,15 +181,14 @@
             opacity: 1;
             transition: opacity 0.5s ease-out;
             z-index: 10; /* Above particles, below detail page */
-            /* --- ADDED: Allow internal scrolling if content overflows --- */
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+            /* Removed overflow-y: auto from here, as body handles overall scroll */
         }
 
         .skills-overview-page.hidden {
             opacity: 0;
             pointer-events: none; /* Make non-interactive when hidden */
-            overflow-y: hidden; /* Hide scrollbar when page is hidden */
+            height: 0; /* Collapse when hidden to prevent interaction */
+            overflow: hidden; /* Hide scrollbar when page is hidden */
         }
 
         .skills-title {
