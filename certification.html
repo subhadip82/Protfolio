@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Certifications - Subhadip Bera</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* --- Custom CSS for common elements and overrides --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #007bff; /* Example blue */
+            --secondary-color: #6c757d; /* Example gray */
+            --background-dark: #1a1a2e; /* This is the main dark background */
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --accent-color: #00bcd4; /* For highlights and some animations */
+            --section-bg-dark: #2a2a4a;
+            --section-bg-light: #3a3a5a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-dark);
+            color: var(--text-light);
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-y: auto;   /* Allow vertical scroll */
+        }
+
+        /* Particles.js background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Ensure it stays behind content */
+            background-color: var(--background-dark); /* Fallback if particles don't load */
+            background-image: url(''); /* Optional: Add a subtle texture */
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 50% 50%;
+        }
+
+        /* --- Navbar (Reused from previous pages) --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: rgba(26, 26, 46, 0.9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 400;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .burger-menu {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 20px;
+            z-index: 1001;
+        }
+
+        .burger-menu div {
+            width: 100%;
+            height: 3px;
+            background-color: var(--text-light);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .burger-menu.active .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        .burger-menu.active .line2 {
+            opacity: 0;
+        }
+        .burger-menu.active .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                right: 0;
+                top: 80px;
+                height: calc(100vh - 80px);
+                background: rgba(26, 26, 46, 0.95);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 70%;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in-out;
+                padding-top: 2rem;
+            }
+
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+
+            .nav-links a {
+                font-size: 1.5rem;
+            }
+
+            .nav-links.active {
+                transform: translateX(0%);
+            }
+
+            .burger-menu {
+                display: flex;
+            }
+        }
+
+        /* --- Chatbot Icon (Reused) --- */
+        .chatbot-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--accent-color);
+            color: var(--background-dark);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .chatbot-icon:hover {
+            transform: scale(1.1) rotate(10deg);
+            background-color: #00e5ff;
+        }
+
+        /* --- Chatbot Box (Reused) --- */
+        .chatbot-box {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            height: 450px;
+            background-color: var(--background-dark);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0.8) translateY(20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease-in-out;
+            z-index: 998;
+        }
+
+        .chatbot-box.active {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .chatbot-header {
+            background-color: var(--primary-color);
+            padding: 15px;
+            color: var(--text-light);
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        .chatbot-header h3 {
+            margin: 0;
+        }
+
+        .close-chatbot {
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .close-chatbot:hover {
+            transform: rotate(90deg);
+        }
+
+        .chatbot-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #2e2e4f;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .message {
+            padding: 8px 12px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .bot-message {
+            background-color: rgba(255, 255, 255, 0.1);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .user-message {
+            background-color: var(--primary-color);
+            align-self: flex-end;
+            color: var(--text-light);
+            border-bottom-right-radius: 5px;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 15px;
+            gap: 10px;
+            background-color: var(--background-dark);
+        }
+
+        .chatbot-input input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid var(--accent-color);
+            border-radius: 25px;
+            background-color: #3e3e5e;
+            color: var(--text-light);
+            outline: none;
+        }
+
+        .chatbot-input button {
+            background-color: var(--accent-color);
+            color: var(--background-dark);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .chatbot-input button:hover {
+            background-color: #00e5ff;
+        }
+
+        /* General Animations */
+        @keyframes fadeInSlideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Essential for 3D transforms on children cards */
+        main {
+            perspective: 1000px;
+        }
+
+        /* --- FLIP CARD STYLES --- */
+        .certification-card-container {
+            width: 100%;
+            max-width: 384px; /* lg:w-96 */
+            height: 450px; /* lg:h-[450px] */
+            perspective: 1000px; /* Enable 3D perspective for the flip */
+            opacity: 0; /* for initial fade-in animation */
+            transform: translateY(20px); /* for initial fade-in animation */
+        }
+
+        .certification-card-container.fade-in {
+            animation: cardFadeIn 1s forwards; /* Apply animation on load */
+        }
+
+        .certification-card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s; /* Smooth flip transition */
+            transform-style: preserve-3d; /* Keep children in 3D space */
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Initial shadow */
+        }
+
+        .certification-card.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Hide the back side during flip */
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Adjust as needed for content */
+            padding: 24px;
+            overflow: hidden; /* Important for border-radius */
+            box-sizing: border-box; /* Include padding in dimensions */
+        }
+
+        .card-front {
+            background: linear-gradient(to bottom right, #3730A3, #5B21B6); /* from-indigo-800 to-purple-900 */
+            z-index: 2;
+        }
+
+        .card-back {
+            background: linear-gradient(to bottom right, #5B21B6, #3730A3); /* Slightly different gradient for back */
+            transform: rotateY(180deg); /* Start rotated for the back face */
+            justify-content: center; /* Center content on the back */
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Hover states for the container (applied when not flipped) */
+        .certification-card-container:not(.is-flipped) .certification-card:hover {
+            transform: scale(1.03) rotateX(3deg) rotateY(2deg); /* subtle 3D hover */
+            box-shadow: 0 10px 20px rgba(128, 0, 128, 0.8); /* Stronger shadow purple-500/80 */
+        }
+
+        /* Border/Outline effect on hover for the front face */
+        .certification-card-container:not(.is-flipped) .card-front {
+            border: 2px solid transparent; /* Initial transparent border */
+            transition: border-color 0.5s ease-in-out, outline 0.5s ease-in-out; /* Smooth transition */
+        }
+
+        .certification-card-container:not(.is-flipped) .card-front:hover {
+            border-color: var(--background-dark); /* Blends into the background */
+            outline: 4px solid rgba(26, 26, 46, 0.7); /* Subtle glow matching background */
+            outline-offset: 2px;
+        }
+
+        /* Overlay for hover effect on front face */
+        .card-front .overlay {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            transition: opacity 0.3s;
+            opacity: 0;
+            z-index: 1; /* Below content but above card background */
+        }
+        .certification-card-container:not(.is-flipped) .card-front:hover .overlay {
+            opacity: 1;
+        }
+
+        /* Image within the card front */
+        .card-front img {
+            width: 100%;
+            height: 66.66%; /* 2/3 height */
+            object-fit: cover;
+            border-radius: 8px; /* rounded-lg */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
+            margin-bottom: 16px; /* mb-4 */
+            transition: transform 0.5s;
+            position: relative; /* important for z-index */
+            z-index: 2; /* Ensure image is above overlay */
+        }
+        .certification-card-container:not(.is-flipped) .card-front:hover img {
+            transform: scale(1.05) rotate(1deg); /* scale-105 rotate-1 */
+        }
+
+        /* Text content within the card front */
+        .card-front h3,
+        .card-front p {
+            position: relative; /* important for z-index */
+            z-index: 2; /* Ensure text is above overlay */
+        }
+
+        /* View Certificate Hint on hover for front face */
+        .card-front .view-certificate-hint {
+            position: absolute;
+            bottom: 20px; /* bottom-5 */
+            color: var(--accent-color);
+            font-size: 18px; /* text-lg */
+            font-weight: 600; /* font-semibold */
+            display: flex;
+            align-items: center;
+            gap: 8px; /* space-x-2 */
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(20px); /* translate-y-5 */
+            z-index: 2;
+        }
+        .certification-card-container:not(.is-flipped) .card-front:hover .view-certificate-hint {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Styles for the back of the card */
+        .card-back .drive-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .card-back .drive-link a {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-back .drive-link a:hover {
+            background-color: #0056b3; /* Darker primary color on hover */
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .card-back .flip-back-button {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .card-back .flip-back-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <header class="navbar">
+        <div class="logo">Subhadip Bera</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="certifications.html">Certifications</a></li>
+                <li><a href="achievements.html">Achievements</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+            </ul>
+        </nav>
+        <div class="burger-menu">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </header>
+
+    <main class="min-h-screen pt-32 pb-16 flex flex-col items-center relative z-10">
+        <h2 class="cert-title text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary-color mb-16 text-shadow-lg"
+            style="text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.5); opacity: 0; transform: translateY(-20px);">
+            My Certifications 🏅
+        </h2>
+        <div id="certifications-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 p-4 max-w-7xl w-full justify-items-center">
+            </div>
+    </main>
+
+    <div class="chatbot-icon" id="chatbot-icon">
+        <i class="fas fa-comments"></i>
+    </div>
+
+    <div class="chatbot-box" id="chatbot-box">
+        <div class="chatbot-header">
+            <h3>Chat with Subhadip</h3>
+            <span class="close-chatbot">&times;</span>
+        </div>
+        <div class="chatbot-messages">
+            <p class="message bot-message">Hello! How can I help you today?</p>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" placeholder="Type your message...">
+            <button>Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Data for Certifications
+        const certificationsData = [
+            {
+                id: 1,
+                name: "Full Stack Web Development",
+                issuer: "Udemy",
+                image: "https://picsum.photos/seed/fullstack/400/300",
+                driveLink: "https://www.google.com/search?q=full+stack+certificate"
+            },
+            {
+                id: 2,
+                name: "JavaScript Algorithms & Data Structures",
+                issuer: "freeCodeCamp",
+                image: "https://picsum.photos/seed/jsdsa/400/300",
+                driveLink: "https://www.google.com/search?q=javascript+dsa+certificate"
+            },
+            {
+                id: 3,
+                name: "React - The Complete Guide",
+                issuer: "Academind (Udemy)",
+                image: "https://picsum.photos/seed/react/400/300",
+                driveLink: "https://www.google.com/search?q=react+certificate"
+            },
+            {
+                id: 4,
+                name: "Python for Everybody",
+                issuer: "Coursera (University of Michigan)",
+                image: "https://picsum.photos/seed/python/400/300",
+                driveLink: "https://www.google.com/search?q=python+certificate"
+            },
+            {
+                id: 5,
+                name: "Machine Learning with Python",
+                issuer: "IBM",
+                image: "https://picsum.photos/seed/mlpython/400/300",
+                driveLink: "https://www.google.com/search?q=machine+learning+certificate"
+            },
+            {
+                id: 6,
+                name: "SQL (Basic to Advanced)",
+                issuer: "HackerRank",
+                image: "https://picsum.photos/seed/sql/400/300",
+                driveLink: "https://www.google.com/search?q=sql+certificate"
+            },
+            {
+                id: 7,
+                name: "Cloud Computing Basics",
+                issuer: "Amazon Web Services (AWS)",
+                image: "https://picsum.photos/seed/awscloud/400/300",
+                driveLink: "https://www.google.com/search?q=aws+cloud+certificate"
+            },
+            {
+                id: 8,
+                name: "Git & GitHub Crash Course",
+                issuer: "Brad Traversy",
+                image: "https://picsum.photos/seed/gitgithub/400/300",
+                driveLink: "https://www.google.com/search?q=git+github+certificate"
+            },
+            {
+                id: 9,
+                name: "Data Structures & Algorithms in C++",
+                issuer: "GeeksforGeeks",
+                image: "https://picsum.photos/seed/dsacpp/400/300",
+                driveLink: "https://www.google.com/search?q=dsa+cpp+certificate"
+            },
+            {
+                id: 10,
+                name: "Responsive Web Design",
+                issuer: "freeCodeCamp",
+                image: "https://picsum.photos/seed/responsiveweb/400/300",
+                driveLink: "https://www.google.com/search?q=responsive+web+design+certificate"
+            }
+        ];
+
+        // Function to create and append certification cards
+        function renderCertifications() {
+            const grid = document.getElementById('certifications-grid');
+            if (!grid) return; // Exit if grid not found
+
+            certificationsData.forEach((cert, index) => {
+                const cardContainer = document.createElement('div');
+                cardContainer.className = `certification-card-container`;
+                cardContainer.style.animationDelay = `${index * 0.1 + 0.5}s`; // Stagger animation
+
+                cardContainer.innerHTML = `
+                    <div class="certification-card">
+                        <div class="card-face card-front">
+                            <div class="overlay"></div>
+                            <img src="${cert.image}" alt="${cert.name}"
+                                 onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/6A5ACD/FFFFFF?text=Image+Not+Found';">
+                            <h3 class="text-2xl lg:text-3xl font-bold text-white mb-2">${cert.name}</h3>
+                            <p class="text-md lg:text-lg text-gray-300">by ${cert.issuer}</p>
+                            <div class="view-certificate-hint">
+                                <i class="fas fa-hand-pointer"></i>
+                                <span>Click to Flip</span>
+                            </div>
+                        </div>
+                        <div class="card-face card-back">
+                            <div class="drive-link">
+                                <p class="text-xl font-bold mb-4">View ${cert.name}</p>
+                                <a href="${cert.driveLink}" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-external-link-alt mr-2"></i>
+                                    Open Certificate
+                                </a>
+                            </div>
+                            <button class="flip-back-button">Flip Back</button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(cardContainer);
+
+                // Add event listeners for flipping
+                const card = cardContainer.querySelector('.certification-card');
+                const flipBackButton = cardContainer.querySelector('.flip-back-button');
+
+                cardContainer.addEventListener('click', (event) => {
+                    // Only flip if not clicking the "Flip Back" button itself
+                    if (event.target !== flipBackButton && !flipBackButton.contains(event.target)) {
+                        card.classList.toggle('is-flipped');
+                        cardContainer.classList.toggle('is-flipped'); // Also toggle on container for proper hover effects
+                    }
+                });
+
+                flipBackButton.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Prevent container's click from re-flipping
+                    card.classList.remove('is-flipped');
+                    cardContainer.classList.remove('is-flipped');
+                });
+
+                // Trigger fade-in animation by adding class after appending
+                setTimeout(() => {
+                    cardContainer.classList.add('fade-in');
+                }, 10);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Render Certifications ---
+            renderCertifications();
+
+            // --- Title Fade-in Animation ---
+            const title = document.querySelector('.cert-title');
+            if (title) {
+                setTimeout(() => {
+                    title.style.transition = 'opacity 1s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    title.style.opacity = 1;
+                    title.style.transform = 'translateY(0)';
+                }, 100);
+            }
+
+            // --- Particles.js Initialization ---
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#ffffff" }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 }, "image": { "src": "img/github.svg", "width": 100, "height": 100 } }, "opacity": { "value": 0.5, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } }, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 6, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
+                    "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 200, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 } }
+                    },
+                    "retina_detect": true
+                });
+            } else {
+                console.warn("particles.js not found. Make sure the CDN script is correctly linked in your HTML.");
+            }
+
+            // --- Mobile Navbar Toggle ---
+            const burgerMenu = document.querySelector('.burger-menu');
+            const navLinks = document.querySelector('.nav-links');
+
+            if (burgerMenu && navLinks) { // Ensure elements exist
+                burgerMenu.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                    burgerMenu.classList.toggle('active');
+                    document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+                });
+
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (navLinks.classList.contains('active')) {
+                            navLinks.classList.remove('active');
+                            burgerMenu.classList.remove('active');
+                            document.body.style.overflow = 'auto';
+                        }
+                    });
+                });
+            } else {
+                console.warn("Navbar elements not found. Mobile menu may not function correctly.");
+            }
+
+            // --- Chatbot Functionality ---
+            const chatbotIcon = document.getElementById('chatbot-icon');
+            const chatbotBox = document.getElementById('chatbot-box');
+            const closeChatbotBtn = document.querySelector('.close-chatbot');
+            const chatbotMessages = document.querySelector('.chatbot-messages');
+            const chatbotInput = document.querySelector('.chatbot-input input');
+            const chatbotSendBtn = document.querySelector('.chatbot-input button');
+
+            if (chatbotIcon && chatbotBox && closeChatbotBtn && chatbotMessages && chatbotInput && chatbotSendBtn) {
+                chatbotIcon.addEventListener('click', () => {
+                    chatbotBox.classList.toggle('active');
+                    if (chatbotBox.classList.contains('active')) {
+                        chatbotInput.focus();
+                    }
+                });
+
+                closeChatbotBtn.addEventListener('click', () => {
+                    chatbotBox.classList.remove('active');
+                });
+
+                const sendChatMessage = () => {
+                    const userMessageText = chatbotInput.value.trim();
+                    if (userMessageText === '') return;
+
+                    const userMessageDiv = document.createElement('p');
+                    userMessageDiv.classList.add('message', 'user-message');
+                    userMessageDiv.textContent = userMessageText;
+                    chatbotMessages.appendChild(userMessageDiv);
+
+                    chatbotInput.value = '';
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+                    setTimeout(() => {
+                        const botMessageDiv = document.createElement('p');
+                        botMessageDiv.classList.add('message', 'bot-message');
+                        let botResponse = "I'm sorry, I don't understand that. Please try asking about Subhadip's skills, projects, or how to contact him!";
+
+                        if (userMessageText.toLowerCase().includes('hello') || userMessageText.toLowerCase().includes('hi')) {
+                            botResponse = "Hello there! How can I assist you regarding Subhadip Bera's portfolio?";
+                        } else if (userMessageText.toLowerCase().includes('skill')) {
+                            botResponse = "Subhadip is proficient in HTML, CSS, JavaScript, React, Node.js, and many more! Check out the skills page for details.";
+                        } else if (userMessageText.toLowerCase().includes('project')) {
+                            botResponse = "You can check out his projects on the 'Projects' page or his GitHub profile!";
+                        } else if (userMessageText.toLowerCase().includes('contact') || userMessageText.toLowerCase().includes('email')) {
+                            botResponse = "You can contact Subhadip via email at your.email@example.com or through his LinkedIn profile."; // UPDATE THIS EMAIL!
+                        } else if (userMessageText.toLowerCase().includes('cv') || userMessageText.toLowerCase().includes('resume')) {
+                            botResponse = "You can download Subhadip's CV by clicking the 'Download CV' button on the home page!";
+                        } else if (userMessageText.toLowerCase().includes('certification') || userMessageText.toLowerCase().includes('certificate')) {
+                            botResponse = "Subhadip has certifications in various domains. You can find them on the Certifications page!";
+                        }
+
+
+                        botMessageDiv.textContent = botResponse;
+                        chatbotMessages.appendChild(botMessageDiv);
+                        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                    }, 1000);
+                };
+
+                chatbotSendBtn.addEventListener('click', sendChatMessage);
+                chatbotInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        sendChatMessage();
+                    }
+                });
+            } else {
+                console.warn("Chatbot elements not found. Ensure HTML elements with correct IDs/classes are present.");
+            }
+        });
+    </script>
+</body>
+</html>
