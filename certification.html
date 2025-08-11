@@ -134,7 +134,11 @@
                 position: fixed;
                 right: 0;
                 top: 80px; /* Aligns below the fixed navbar height */
-                height: calc(100vh - 80px); /* Full height minus navbar */
+                /* FIX: Changed height to min-height and added overflow-y: auto */
+                min-height: calc(100vh - 80px); /* Ensure it takes at least this much height */
+                max-height: calc(100vh - 80px); /* Prevent it from exceeding viewport height */
+                overflow-y: auto; /* Allow scrolling if content overflows */
+                -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
                 background: rgba(26, 26, 46, 0.95); /* Semi-transparent background */
                 display: flex;
                 flex-direction: column;
@@ -144,6 +148,7 @@
                 transform: translateX(100%); /* Initially off-screen */
                 transition: transform 0.5s ease-in-out;
                 padding-top: 2rem;
+                padding-bottom: 2rem; /* Added padding at the bottom for scrollable content */
                 z-index: 999; /* Below the burger menu, but above content */
             }
 
@@ -314,6 +319,9 @@
         /* Essential for 3D transforms on children cards */
         main {
             perspective: 1000px;
+            /* FIX: Adjusted padding-top to ensure content is below the fixed navbar */
+            padding-top: 100px; /* Space for fixed 80px navbar + 20px buffer */
+            min-height: 100vh; /* Ensure it covers at least full viewport height */
         }
 
         /* --- FLIP CARD STYLES --- */
