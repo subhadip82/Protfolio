@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects - Subhadip Bera</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+    <style>
+        /* --- CSS for projects.html (Combined common styles, navbar, particles, and new project styles) --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #007bff; /* Example blue */
+            --secondary-color: #6c757d; /* Example gray */
+            --background-dark: #1a1a2e;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --accent-color: #00bcd4; /* For animations/highlights */
+            --section-bg-dark: #2a2a4a;
+            --section-bg-light: #3a3a5a;
+            --card-front-bg: linear-gradient(135deg, #2c3e50, #4a69bd); /* Dark blue gradient */
+            --card-back-bg: #111a2e; /* Even darker for video */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-dark);
+            color: var(--text-light);
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-y: auto;   /* Allow vertical scroll */
+        }
+
+        /* Particles.js background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Ensure it stays behind content */
+            background-color: var(--background-dark); /* Fallback if particles don't load */
+            background-image: url(''); /* Optional: Add a subtle texture */
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 50% 50%;
+        }
+
+        /* --- Navbar (Reused from Skills page) --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: rgba(26, 26, 46, 0.9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 400;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .burger-menu {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 20px;
+            z-index: 1001;
+        }
+
+        .burger-menu div {
+            width: 100%;
+            height: 3px;
+            background-color: var(--text-light);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .burger-menu.active .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        .burger-menu.active .line2 {
+            opacity: 0;
+        }
+        .burger-menu.active .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                right: 0;
+                top: 80px;
+                height: calc(100vh - 80px);
+                background: rgba(26, 26, 46, 0.95);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 70%;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in-out;
+                padding-top: 2rem;
+            }
+
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+
+            .nav-links a {
+                font-size: 1.5rem;
+            }
+
+            .nav-links.active {
+                transform: translateX(0%);
+            }
+
+            .burger-menu {
+                display: flex;
+            }
+        }
+
+        /* --- Main Projects Section --- */
+        .projects-page {
+            padding-top: 120px; /* More space for fixed navbar and title */
+            padding-bottom: 50px;
+            min-height: 100vh; /* Ensure it covers at least full viewport height */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            z-index: 10; /* Above particles */
+            position: relative; /* For z-index to work against fixed elements */
+        }
+
+        .projects-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+            text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInSlideDown 1s forwards 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid columns */
+            gap: 40px; /* Space between cards */
+            padding: 0 20px;
+            max-width: 1300px; /* Max width for the grid */
+            width: 95%; /* Occupy most of the width */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- Project Card Flip Animation --- */
+        .project-card-container {
+            width: 100%;
+            height: 350px; /* Fixed height for consistent cards */
+            perspective: 1000px; /* For 3D flip effect */
+            cursor: pointer;
+            position: relative;
+            animation: cardFadeIn 0.8s ease-out forwards;
+            opacity: 0; /* Initial state for animation */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* For hover effect */
+        }
+
+        /* Hover Style for project-card-container */
+        .project-card-container:not(.flipped):hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .project-card {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform-style: preserve-3d; /* Key for 3D transforms */
+            transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1); /* Smooth flip animation */
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-card-container.flipped .project-card {
+            transform: rotateY(180deg);
+        }
+
+        .project-card-front,
+        .project-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden; /* Hide the back of the element when facing away */
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+            text-align: center;
+            overflow: hidden; /* Ensure content within doesn't overflow rounded corners */
+        }
+
+        .project-card-front {
+            background: var(--card-front-bg);
+            z-index: 2;
+        }
+
+        .project-card-back {
+            background: var(--card-back-bg);
+            transform: rotateY(180deg); /* Initial rotation to hide it */
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0; /* Video will fill this space */
+        }
+
+        /* --- NEW: Style for project image/icon --- */
+        .project-card-front .project-image {
+            width: 60px; /* Adjust size as needed */
+            height: 60px; /* Adjust size as needed */
+            object-fit: contain; /* Ensure image fits without distortion */
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 8px rgba(0,0,0,0.4)); /* Subtle shadow for icon */
+        }
+
+        .project-card-front h3 {
+            font-size: 2rem;
+            color: var(--text-light);
+            margin-bottom: 15px; /* Adjust margin if image is added above */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+
+        .project-card-front p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .project-links a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: color 0.3s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .project-links a:hover {
+            color: #00e5ff;
+            transform: translateY(-3px);
+        }
+
+        .project-links a i {
+            font-size: 1.2rem;
+        }
+
+        .project-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensure video covers the entire area */
+            border-radius: 15px; /* Match card border radius */
+            display: block; /* Remove extra space below video */
+        }
+
+        /* --- Chatbot Icon (Reused) --- */
+        .chatbot-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--accent-color);
+            color: var(--background-dark);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .chatbot-icon:hover {
+            transform: scale(1.1) rotate(10deg);
+            background-color: #00e5ff;
+        }
+
+        /* --- Chatbot Box (Reused) --- */
+        .chatbot-box {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            height: 450px;
+            background-color: var(--background-dark);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0.8) translateY(20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease-in-out;
+            z-index: 998;
+        }
+
+        .chatbot-box.active {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .chatbot-header {
+            background-color: var(--primary-color);
+            padding: 15px;
+            color: var(--text-light);
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        .chatbot-header h3 {
+            margin: 0;
+        }
+
+        .close-chatbot {
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .close-chatbot:hover {
+            transform: rotate(90deg);
+        }
+
+        .chatbot-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #2e2e4f;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .message {
+            padding: 8px 12px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .bot-message {
+            background-color: rgba(255, 255, 255, 0.1);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .user-message {
+            background-color: var(--primary-color);
+            align-self: flex-end;
+            color: var(--text-light);
+            border-bottom-right-radius: 5px;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 15px;
+            gap: 10px;
+            background-color: var(--background-dark);
+        }
+
+        .chatbot-input input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid var(--accent-color);
+            border-radius: 25px;
+            background-color: #3e3e5e;
+            color: var(--text-light);
+            outline: none;
+        }
+
+        .chatbot-input button {
+            background-color: var(--accent-color);
+            color: var(--background-dark);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .chatbot-input button:hover {
+            background-color: #00e5ff;
+        }
+
+        /* --- General Animations --- */
+        @keyframes fadeInSlideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        /* --- Media Queries for Responsiveness --- */
+        @media (max-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 30px;
+            }
+            .project-card-container {
+                height: 320px;
+            }
+            .project-card-front .project-image {
+                width: 50px;
+                height: 50px;
+            }
+            .project-card-front h3 {
+                font-size: 1.8rem;
+            }
+            .project-card-front p {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .projects-title {
+                font-size: 2.8rem;
+                margin-bottom: 40px;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr; /* Stack cards on very small screens */
+                gap: 30px;
+                width: 90%;
+            }
+            .project-card-container {
+                height: 300px; /* Adjust height for mobile */
+            }
+            .project-card-front .project-image {
+                width: 45px;
+                height: 45px;
+            }
+            .project-card-front h3 {
+                font-size: 1.6rem;
+            }
+            .project-card-front p {
+                font-size: 0.9rem;
+            }
+            .project-links a {
+                font-size: 0.95rem;
+            }
+            .projects-page {
+                padding-top: 100px; /* Adjust top padding for smaller screens */
+            }
+            .chatbot-box {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+                bottom: 80px;
+                height: 400px;
+            }
+            .chatbot-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.8rem;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .projects-title {
+                font-size: 2.2rem;
+                margin-bottom: 30px;
+            }
+            .project-card-container {
+                height: 280px;
+            }
+            .project-card-front .project-image {
+                width: 40px;
+                height: 40px;
+            }
+            .project-card-front h3 {
+                font-size: 1.4rem;
+            }
+            .project-card-front p {
+                font-size: 0.85rem;
+            }
+            .project-links {
+                flex-direction: column; /* Stack links on tiny screens */
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <header class="navbar">
+        <div class="logo">Subhadip Bera</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="achievements.html">Achievements</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+            </ul>
+        </nav>
+        <div class="burger-menu">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </header>
+
+    <main class="projects-page" id="projects-page">
+        <h2 class="projects-title">My Creative Projects 🎨</h2>
+        <div class="projects-grid" id="projects-grid">
+            </div>
+    </main>
+
+    <div class="chatbot-icon" id="chatbot-icon">
+        <i class="fas fa-comments"></i>
+    </div>
+
+    <div class="chatbot-box" id="chatbot-box">
+        <div class="chatbot-header">
+            <h3>Chat with Subhadip</h3>
+            <span class="close-chatbot">&times;</span>
+        </div>
+        <div class="chatbot-messages">
+            <p class="message bot-message">Hello! How can I help you today?</p>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" placeholder="Type your message...">
+            <button>Send</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Particles.js Initialization ---
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#ffffff" }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 }, "image": { "src": "img/github.svg", "width": 100, "height": 100 } }, "opacity": { "value": 0.5, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } }, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 6, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
+                    "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 200, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 } }
+                    },
+                    "retina_detect": true
+                });
+            } else {
+                console.warn("particles.js not found. Make sure the CDN script is correctly linked in your HTML.");
+            }
+
+            // --- Mobile Navbar Toggle (Reused from Skills page) ---
+            const burgerMenu = document.querySelector('.burger-menu');
+            const navLinks = document.querySelector('.nav-links');
+
+            burgerMenu.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                burgerMenu.classList.toggle('active');
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        burgerMenu.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            });
+
+            // --- Chatbot Functionality (Reused) ---
+            const chatbotIcon = document.getElementById('chatbot-icon');
+            const chatbotBox = document.getElementById('chatbot-box');
+            const closeChatbotBtn = document.querySelector('.close-chatbot');
+            const chatbotMessages = document.querySelector('.chatbot-messages');
+            const chatbotInput = document.querySelector('.chatbot-input input');
+            const chatbotSendBtn = document.querySelector('.chatbot-input button');
+
+            if (chatbotIcon && chatbotBox && closeChatbotBtn && chatbotMessages && chatbotInput && chatbotSendBtn) {
+                chatbotIcon.addEventListener('click', () => {
+                    chatbotBox.classList.toggle('active');
+                    if (chatbotBox.classList.contains('active')) {
+                        chatbotInput.focus();
+                    }
+                });
+
+                closeChatbotBtn.addEventListener('click', () => {
+                    chatbotBox.classList.remove('active');
+                });
+
+                const sendChatMessage = () => {
+                    const userMessageText = chatbotInput.value.trim();
+                    if (userMessageText === '') return;
+
+                    const userMessageDiv = document.createElement('p');
+                    userMessageDiv.classList.add('message', 'user-message');
+                    userMessageDiv.textContent = userMessageText;
+                    chatbotMessages.appendChild(userMessageDiv);
+
+                    chatbotInput.value = '';
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+                    setTimeout(() => {
+                        const botMessageDiv = document.createElement('p');
+                        botMessageDiv.classList.add('message', 'bot-message');
+                        let botResponse = "I'm sorry, I don't understand that. Please try asking about Subhadip's skills, projects, or how to contact him!";
+
+                        if (userMessageText.toLowerCase().includes('hello') || userMessageText.toLowerCase().includes('hi')) {
+                            botResponse = "Hello there! How can I assist you regarding Subhadip Bera's portfolio?";
+                        } else if (userMessageText.toLowerCase().includes('skill')) {
+                            botResponse = "Subhadip is proficient in HTML, CSS, JavaScript, React, Node.js, and many more! Check out the skills page for details.";
+                        } else if (userMessageText.toLowerCase().includes('project')) {
+                            botResponse = "You can check out his projects on the 'Projects' page or his GitHub profile!";
+                        } else if (userMessageText.toLowerCase().includes('contact') || userMessageText.toLowerCase().includes('email')) {
+                            botResponse = "You can contact Subhadip via email at your.email@example.com or through his LinkedIn profile."; // UPDATE THIS EMAIL!
+                        } else if (userMessageText.toLowerCase().includes('cv') || userMessageText.toLowerCase().includes('resume')) {
+                            botResponse = "You can download Subhadip's CV by clicking the 'Download CV' button on the home page!";
+                        }
+
+                        botMessageDiv.textContent = botResponse;
+                        chatbotMessages.appendChild(botMessageDiv);
+                        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                    }, 1000);
+                };
+
+                chatbotSendBtn.addEventListener('click', sendChatMessage);
+                chatbotInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        sendChatMessage();
+                    }
+                });
+            } else {
+                console.warn("Chatbot elements not found. Ensure HTML elements with correct IDs/classes are present.");
+            }
+
+            // --- Project Section Logic (Flip Cards) ---
+
+            // Data for your projects
+            const projectsData = [
+                {
+                    name: "AI Chatbot Assistant",
+                    tools: "Python, Flask, TensorFlow, NLP, HTML, CSS, JS",
+                    github: "https://github.com/yourusername/ai-chatbot-project",
+                    live: "https://your-chatbot-live-demo.com",
+                    video: "https://assets.mixkit.co/videos/preview/mixkit-software-developer-working-on-his-computer-41130-large.mp4", // Placeholder video
+                    image: "https://img.icons8.com/ios-filled/100/ffffff/robot-2.png" // AI icon
+                },
+                {
+                    name: "E-commerce Platform",
+                    tools: "MERN Stack (MongoDB, Express, React, Node.js), Stripe API",
+                    github: "https://github.com/yourusername/ecommerce-mern",
+                    live: "https://your-ecommerce-live.com",
+                    video: "https://assets.mixkit.co/videos/preview/mixkit-laptop-and-coffee-on-the-desk-28045-large.mp4", // Placeholder video
+                    image: "https://img.icons8.com/ios-filled/100/ffffff/shopping-cart--v1.png" // E-commerce icon
+                },
+                {
+                    name: "Portfolio Website",
+                    tools: "HTML5, CSS3, JavaScript, Particles.js, FontAwesome",
+                    github: "https://github.com/yourusername/portfolio-website",
+                    live: "https://your-portfolio-live.com",
+                    video: "https://assets.mixkit.co/videos/preview/mixkit-designers-working-on-a-computer-at-the-office-41002-large.mp4", // Placeholder video
+                    image: "https://img.icons8.com/ios-filled/100/ffffff/portfolio.png" // Portfolio icon
+                },
+                {
+                    name: "Task Management App",
+                    tools: "React, Redux, Node.js, Express, PostgreSQL",
+                    github: "https://github.com/yourusername/task-manager-app",
+                    live: "https://your-task-manager-live.com",
+                    video: "https://assets.mixkit.co/videos/preview/mixkit-man-working-with-a-tablet-1065-large.mp4", // Placeholder video
+                    image: "https://img.icons8.com/ios-filled/100/ffffff/to-do-list--v1.png" // Task icon
+                },
+                {
+                    name: "Weather Dashboard",
+                    tools: "JavaScript, OpenWeather API, HTML, CSS",
+                    github: "https://github.com/yourusername/weather-dashboard",
+                    live: "https://your-weather-live.com",
+                    video: "https://assets.mixkit.co/videos/preview/mixkit-weather-application-on-a-laptop-41221-large.mp4", // Placeholder video
+                    image: "https://img.icons8.com/ios-filled/100/ffffff/partly-cloudy-rain.png" // Weather icon
+                },
+                 {
+                    name: "Blog Platform",
+                    tools: "Django, Python, SQLite, HTML, CSS",
+                    github: "https://github.com/yourusername/blog-platform",
+                    live: "https://your-blog-live.com",
+                    video: "https://assets.mixkit.co/videos/preview/mixkit-business-woman-working-on-laptop-at-home-41091-large.mp4", // Placeholder video
+                    image: "https://img.icons8.com/ios-filled/100/ffffff/blog.png" // Blog icon
+                }
+            ];
+
+            const projectsGrid = document.getElementById('projects-grid');
+
+            function createProjectCard(project, index) {
+                const cardContainer = document.createElement('div');
+                cardContainer.classList.add('project-card-container');
+                cardContainer.style.animationDelay = `${index * 0.1}s`; // Stagger animation
+
+                cardContainer.innerHTML = `
+                    <div class="project-card">
+                        <div class="project-card-front">
+                            ${project.image ? `<img src="${project.image}" alt="${project.name} icon" class="project-image">` : ''}
+                            <h3>${project.name}</h3>
+                            <p><strong>Tools:</strong> ${project.tools}</p>
+                            <div class="project-links">
+                                <a href="${project.github}" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-github"></i> GitHub
+                                </a>
+                                <a href="${project.live}" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-external-link-alt"></i> Live Demo
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-card-back">
+                            <video class="project-video" src="${project.video}" loop muted playsinline></video>
+                        </div>
+                    </div>
+                `;
+
+                const projectCard = cardContainer.querySelector('.project-card');
+                const projectVideo = cardContainer.querySelector('.project-video');
+
+                cardContainer.addEventListener('click', () => {
+                    cardContainer.classList.toggle('flipped');
+                    if (cardContainer.classList.contains('flipped')) {
+                        projectVideo.play();
+                    } else {
+                        projectVideo.pause();
+                        projectVideo.currentTime = 0; // Reset video to start
+                    }
+                });
+
+                return cardContainer;
+            }
+
+            // Populate projects grid
+            projectsData.forEach((project, index) => {
+                const card = createProjectCard(project, index);
+                projectsGrid.appendChild(card);
+            });
+        });
+    </script>
+</body>
+</html>
