@@ -240,7 +240,7 @@
             align-items: center;
             /* background is handled by specific class below */
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), 0 0 60px rgba(0, 0, 0, 0.5); /* Base shadow */
-            animation: rotateBorder 8s linear infinite; /* Base animation */
+            /* Removed rotateBorder from here */
         }
 
         .about-image-container { /* Specific styles for about page image container */
@@ -248,7 +248,8 @@
             height: 450px;
             background: linear-gradient(135deg, var(--accent-color), var(--primary-color)); /* Different gradient */
             box-shadow: 0 0 40px rgba(0, 188, 212, 0.6), 0 0 80px rgba(0, 123, 255, 0.6);
-            animation: rotateBorder 10s linear infinite, glowPulse 3s infinite alternate; /* More animations */
+            /* Removed rotateBorder from here */
+            animation: glowPulse 3s infinite alternate; /* Keep glowPulse if desired, otherwise remove this line too */
         }
 
         .profile-image {
@@ -421,6 +422,8 @@
             }
         }
 
+        /* Removed keyframes for rotateBorder to stop the animation */
+        /*
         @keyframes rotateBorder {
             0% {
                 transform: rotate(0deg);
@@ -429,6 +432,7 @@
                 transform: rotate(360deg);
             }
         }
+        */
 
         /* Specific animations for About page */
         @keyframes slideInLeft {
@@ -589,21 +593,23 @@
     <main class="about-section">
         <div class="about-content">
             <div class="left-about-content">
-                <h2 class="section-title">About Me 👋</h2>
-                <p>Hello! I'm Subhadip Bera, a passionate and dedicated **Software Developer** with a keen eye for creating robust, efficient, and user-friendly applications. My journey in the tech world began with a curiosity for how things work, evolving into a strong desire to build and innovate. 🚀</p>
-                <p>I specialize in **frontend and backend development**, leveraging modern technologies to bring ideas to life. I enjoy solving complex problems and am always eager to learn new technologies and best practices. My goal is to craft exceptional digital experiences that make a real impact. ✨</p>
-                <p>Outside of coding, I'm often exploring new frameworks, contributing to open-source projects, or diving into a good book. I believe in continuous learning and adapting to the ever-evolving landscape of technology. Let's build something amazing together! 💡</p>
-                <p>Feel free to connect with me on my social channels! 👇</p>
+                <h2 class="section-title">About Me 😊</h2>
+                <p>Hello! I’m <strong>Subhadip Bera</strong> from Kharagpur, West Bengal. I completed my higher secondary education at <em>Jalchak Nateswari Netaji Vidyatan</em> and am currently pursuing a <strong>B.Tech in Computer Science and Engineering</strong> at <em>The Neotia University</em>.</p>
+
+<p>I come from a close-knit nuclear family and have a passion for <strong>cooking</strong> and <strong>travelling</strong>, which inspire my creativity and adaptability. My strengths include quick learning, problem-solving, and strong teamwork skills. While I sometimes tend to focus too much on details, I see this as an opportunity to improve my time management without compromising quality.</p>
+
+<p>My short-term goal is to secure a role in a top MNC where I can apply my technical skills, contribute to innovative projects, and grow as a professional.</p>
+
                 <div class="social-icons about-social">
-                    <a href="mailto:your.email@example.com" class="icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                    <a href="https://linkedin.com/in/yourprofile" target="_blank" class="icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://github.com/yourprofile" target="_blank" class="icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="https://instagram.com/yourprofile" target="_blank" class="icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="mailto:subhodipbera10@gmail.com" class="icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="https://www.linkedin.com/in/subhadip-bera01/" target="_blank" class="icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/subhadip82" target="_blank" class="icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.instagram.com/subhadip_bera0?igsh=N3FjbDFlYjN6YTIy" target="_blank" class="icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
             <div class="right-about-content">
                 <div class="profile-image-container about-image-container">
-                    <img id="about-profile-image" src="https://via.placeholder.com/400/007bff/ffffff?text=Subhadip+1" alt="Subhadip Bera Profile" class="profile-image">
+                    <img id="about-profile-image" src="aboutpagephoto_1.jpg" alt="Subhadip Bera Profile" class="profile-image">
                 </div>
             </div>
         </div>
@@ -833,35 +839,19 @@
                 console.warn("Chatbot elements not found. Ensure HTML elements with correct IDs/classes are present.");
             }
 
-
-            // --- About Page Image Hover Effect ---
+            // --- Image change on click functionality ---
             const aboutProfileImage = document.getElementById('about-profile-image');
             const imagePaths = [
-                'https://via.placeholder.com/400/007bff/ffffff?text=Subhadip+1', // First image
-                'https://via.placeholder.com/400/00bcd4/ffffff?text=Subhadip+2', // Second image
-                'https://via.placeholder.com/400/6c757d/ffffff?text=Subhadip+3', // Third image
-                'https://via.placeholder.com/400/f0ad4e/ffffff?text=Subhadip+4', // Fourth image
-                // Add more image paths here!
+                'aboutpagephoto_1.jpg',
+                'aboutpagephoto_2.jpg',
+                'aboutpagephoto_3.jpg'
+                // Add more image paths here as needed
             ];
             let currentImageIndex = 0;
-            let hoverInterval;
 
-
-
-            
             if (aboutProfileImage) {
-                aboutProfileImage.addEventListener('mouseenter', () => {
-                    // Start changing image every 500ms on hover
-                    hoverInterval = setInterval(() => {
-                        currentImageIndex = (currentImageIndex + 1) % imagePaths.length;
-                        aboutProfileImage.src = imagePaths[currentImageIndex];
-                    }, 500); // Change image every 0.5 seconds
-                });
-
-                aboutProfileImage.addEventListener('mouseleave', () => {
-                    // Stop changing images and reset to the first one
-                    clearInterval(hoverInterval);
-                    currentImageIndex = 0; // Reset to first image
+                aboutProfileImage.addEventListener('click', () => {
+                    currentImageIndex = (currentImageIndex + 1) % imagePaths.length;
                     aboutProfileImage.src = imagePaths[currentImageIndex];
                 });
             }
