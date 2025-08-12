@@ -158,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             // Replace with the actual path to your CV file
             const cvUrl = 'my_cv.pdf'; 
+            
             const link = document.createElement('a');
             link.href = cvUrl;
             link.setAttribute('download', 'Subhadip_Bera_CV.pdf'); // Suggested filename
