@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Simulate download delay
         setTimeout(() => {
             // Replace with the actual path to your CV file
-            const cvUrl = 'your-cv.pdf'; // IMPORTANT: Replace with your actual CV file path
+            const cvUrl = 'my_cv.pdf'; 
             const link = document.createElement('a');
             link.href = cvUrl;
             link.setAttribute('download', 'Subhadip_Bera_CV.pdf'); // Suggested filename
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Hire Me Button Action ---
     const hireMeBtn = document.getElementById('hire-me-btn');
     hireMeBtn.addEventListener('click', () => {
-        const emailAddress = 'your.email@example.com'; // IMPORTANT: Replace with your actual email
+        const emailAddress = 'subhodipbera10@gmail.com'; 
         const subject = 'Hiring Inquiry from Portfolio Website';
         const body = 'Dear Subhadip,\n\nI am interested in discussing a potential opportunity...\n\nSincerely,\n[Your Name]';
         window.location.href = `mailto:${emailAddress}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
