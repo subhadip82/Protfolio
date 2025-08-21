@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Experience - Subhadip Bera</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* --- Root Variables & Base Styles (Consistent) --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #007bff; /* Example blue */
+            --secondary-color: #6c757d; /* Example gray */
+            --background-dark: #1a1a2e; /* Deep purple-blue */
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --accent-color: #8A2BE2; /* BlueViolet */
+            --accent-light: #9370DB; /* MediumPurple */
+            --section-bg-dark: #2a2a4a;
+            --section-bg-light: #3a3a5a;
+            --card-gradient-start: #2e106b; /* Darker purple */
+            --card-gradient-end: #4c1d95; /* Lighter purple */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: overflow-y 0.3s ease;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background-color: var(--background-dark);
+        }
+
+        /* --- Navbar (Consistent) --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: rgba(26, 26, 46, 0.9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 400;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-light);
+            transform: translateY(-3px);
+        }
+
+        /* --- Mobile Navbar (Consistent) --- */
+        .burger-menu {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 20px;
+            z-index: 1001;
+        }
+
+        .burger-menu div {
+            width: 100%;
+            height: 3px;
+            background-color: var(--text-light);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .burger-menu.active .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
+        .burger-menu.active .line2 { opacity: 0; }
+        .burger-menu.active .line3 { transform: rotate(45deg) translate(-5px, -6px); }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                right: 0;
+                top: 80px;
+                min-height: calc(100vh - 80px);
+                max-height: calc(100vh - 80px);
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                background: rgba(26, 26, 46, 0.95);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 70%;
+                max-width: 300px;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in-out;
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+                z-index: 999;
+            }
+
+            .nav-links li { margin: 1.5rem 0; }
+            .nav-links a { font-size: 1.5rem; }
+            .nav-links.active { transform: translateX(0%); }
+            .burger-menu { display: flex; }
+        }
+
+        /* --- Chatbot Icon & Box (Consistent) --- */
+        .chatbot-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--accent-color);
+            color: var(--background-dark);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .chatbot-icon:hover {
+            transform: scale(1.1) rotate(10deg);
+            background-color: var(--accent-light);
+        }
+
+        .chatbot-box {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            height: 450px;
+            background-color: var(--background-dark);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0.8) translateY(20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease-in-out;
+            z-index: 998;
+        }
+
+        .chatbot-box.active {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .chatbot-header {
+            background-color: var(--primary-color);
+            padding: 15px;
+            color: var(--text-light);
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        .close-chatbot {
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .close-chatbot:hover { transform: rotate(90deg); }
+
+        .chatbot-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #2e2e4f;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .message {
+            padding: 8px 12px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .bot-message {
+            background-color: rgba(255, 255, 255, 0.1);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .user-message {
+            background-color: var(--primary-color);
+            align-self: flex-end;
+            color: var(--text-light);
+            border-bottom-right-radius: 5px;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 15px;
+            gap: 10px;
+            background-color: var(--background-dark);
+        }
+
+        .chatbot-input input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid var(--accent-color);
+            border-radius: 25px;
+            background-color: #3e3e5e;
+            color: var(--text-light);
+            outline: none;
+        }
+
+        .chatbot-input button {
+            background-color: var(--accent-color);
+            color: var(--background-dark);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .chatbot-input button:hover { background-color: var(--accent-light); }
+        
+        /* --- General Animations --- */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInSlideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes itemFadeIn {
+            from { opacity: 0; transform: scale(0.9) translateY(30px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* --- Main Page Container and Transitions --- */
+        .experience-page {
+            padding-top: 100px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .page-content {
+            width: 100%;
+            max-width: 1200px; /* New: Added max-width to prevent stretching */
+            padding: 0 20px;
+            transition: opacity 0.5s ease-in-out;
+            display: none; /* All pages are hidden by default */
+        }
+
+        .page-content.active {
+            display: flex;
+            flex-direction: column;
+            opacity: 1;
+            pointer-events: auto;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        /* --- Overview Page Styles --- */
+        .experience-overview-page {
+            padding-bottom: 50px;
+        }
+
+        .experience-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+            text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInSlideDown 1s forwards 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .experience-section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            justify-content: center;
+        }
+
+        .section-card {
+            background: linear-gradient(145deg, var(--card-gradient-start), var(--card-gradient-end));
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+            opacity: 0;
+            animation: itemFadeIn 0.8s ease-out forwards;
+            border: 2px solid transparent;
+        }
+
+        .section-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px var(--accent-light);
+            border-color: var(--accent-light);
+        }
+
+        .section-card i {
+            font-size: 4rem;
+            color: var(--accent-light);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .section-card:hover i { transform: scale(1.1); }
+
+        .section-card h3 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .section-card p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* --- Detail Page Styles --- */
+        .experience-detail-page {
+            padding-bottom: 50px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .back-button {
+            background: var(--accent-color);
+            color: var(--text-light);
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-bottom: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-button:hover {
+            background-color: var(--accent-light);
+            transform: scale(1.05);
+        }
+        
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            justify-content: center;
+        }
+        
+        /* --- Flip Card Styling --- */
+        .flip-card-container {
+            perspective: 1000px;
+            height: 500px;
+        }
+        
+        .flip-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            border-radius: 15px;
+        }
+        
+        .flip-card.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--accent-light);
+            background: linear-gradient(145deg, var(--card-gradient-start), var(--card-gradient-end));
+            overflow-y: auto;
+        }
+
+        .flip-card-front {
+            z-index: 2;
+        }
+
+        .flip-card-back {
+            transform: rotateY(180deg);
+            z-index: 1;
+        }
+        
+        .card-content {
+            margin-bottom: 20px;
+        }
+        
+        .card-content h4 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            color: var(--accent-light);
+        }
+        
+        .card-content p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* --- Image Section on Flip Card Back --- */
+        .flip-card-back .card-content {
+            text-align: left;
+            width: 100%;
+            margin-bottom: 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .flip-card-back .card-content h4 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .flip-card-back .card-content p {
+            text-align: center;
+        }
+
+        .flip-card-back .card-content span {
+            display: block;
+            margin-bottom: 15px;
+        }
+        
+        .flip-card-image-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .flip-card-image {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--accent-light);
+        }
+        
+        .flip-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .flip-card-image:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .flip-card-image:hover img {
+            transform: scale(1.2);
+        }
+        
+        /* --- Lightbox Styles (Consistent with achievements.html) --- */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .lightbox-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            background: var(--background-dark);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            transform: scale(0.8);
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lightbox-overlay.active .lightbox-content {
+            transform: scale(1);
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            display: block;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: var(--text-light);
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 2001;
+        }
+
+        .lightbox-close:hover {
+            color: var(--primary-color);
+        }
+        
+        /* --- Responsive Media Queries --- */
+        @media (max-width: 768px) {
+            .experience-title {
+                font-size: 2rem; /* Adjusted for better mobile fit */
+            }
+            .section-card h3 {
+                font-size: 1.8rem;
+            }
+            .section-card p {
+                font-size: 0.9rem;
+            }
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+            .flip-card-container {
+                height: auto;
+                min-height: 500px;
+                margin-bottom: 20px; /* Added spacing between cards */
+            }
+            .flip-card-front, .flip-card-back {
+                padding: 20px; /* Reduced padding on mobile */
+            }
+            .flip-card-back .card-content {
+                text-align: center;
+            }
+            .flip-card-image-grid {
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 10px; /* Reduced gap between images */
+            }
+            .flip-card-image {
+                width: 70px;
+                height: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <header class="navbar">
+        <div class="logo">Subhadip Bera</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="skill.html">Skills</a></li>
+                <li><a href="project.html">Projects</a></li>
+                <li><a href="certification.html">Certifications</a></li>
+                <li><a href="achievements.html">Achievements</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+            </ul>
+        </nav>
+        <div class="burger-menu">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </header>
+
+    <main class="experience-page">
+        <div id="experienceOverviewPage" class="page-content active">
+            <h2 class="experience-title">My Work Experience</h2>
+            <div class="experience-section-grid">
+                <div class="section-card" data-section="internship">
+                    <i class="fas fa-briefcase"></i>
+                    <h3>Internship</h3>
+                    <p>Hands-on experience in a professional environment.</p>
+                </div>
+                <div class="section-card" data-section="workshop">
+                    <i class="fas fa-hammer"></i>
+                    <h3>Workshop</h3>
+                    <p>Practical learning and skill development sessions.</p>
+                </div>
+                <div class="section-card" data-section="job">
+                    <i class="fas fa-user-tie"></i>
+                    <h3>Job</h3>
+                    <p>Professional roles and responsibilities.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="experienceDetailPage" class="page-content">
+            <h2 id="detailTitle" class="experience-title"></h2>
+            <div class="back-button" id="backToOverview">
+                <i class="fas fa-arrow-left"></i> Back
+            </div>
+            <div id="detailGrid" class="detail-grid">
+                </div>
+        </div>
+    </main>
+
+    <div class="lightbox-overlay" id="lightboxOverlay">
+        <div class="lightbox-content">
+            <span class="lightbox-close" id="lightboxClose">&times;</span>
+            <img src="" alt="Enlarged Experience Photo" class="lightbox-image" id="lightboxImage">
+        </div>
+    </div>
+
+    <div class="chatbot-icon" id="chatbot-icon">
+        <i class="fas fa-comments"></i>
+    </div>
+    <div class="chatbot-box" id="chatbot-box">
+        <div class="chatbot-header">
+            <h3>Chat with Subhadip</h3>
+            <span class="close-chatbot">&times;</span>
+        </div>
+        <div class="chatbot-messages">
+            <p class="message bot-message">Hello! How can I help you today?</p>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" placeholder="Type your message...">
+            <button>Send</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Particles.js Initialization ---
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#ffffff" }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 }, "image": { "src": "img/github.svg", "width": 100, "height": 100 } }, "opacity": { "value": 0.5, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } }, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 6, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } },
+                    "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 200, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 } }
+                    },
+                    "retina_detect": true
+                });
+            } else {
+                console.warn("particles.js not found. Make sure the CDN script is correctly linked in your HTML.");
+            }
+
+            // --- Mobile Navbar Toggle & Chatbot (Consistent) ---
+            const burgerMenu = document.querySelector('.burger-menu');
+            const navLinks = document.querySelector('.nav-links');
+            const chatbotIcon = document.getElementById('chatbot-icon');
+            const chatbotBox = document.getElementById('chatbot-box');
+            const closeChatbotBtn = document.querySelector('.close-chatbot');
+            const chatbotMessages = document.querySelector('.chatbot-messages');
+            const chatbotInput = document.querySelector('.chatbot-input input');
+            const chatbotSendBtn = document.querySelector('.chatbot-input button');
+
+            if (burgerMenu && navLinks) {
+                burgerMenu.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                    burgerMenu.classList.toggle('active');
+                    document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+                });
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (navLinks.classList.contains('active')) {
+                            navLinks.classList.remove('active');
+                            burgerMenu.classList.remove('active');
+                            document.body.style.overflow = 'auto';
+                        }
+                    });
+                });
+            }
+
+            if (chatbotIcon && chatbotBox && closeChatbotBtn && chatbotMessages && chatbotInput && chatbotSendBtn) {
+                chatbotIcon.addEventListener('click', () => {
+                    chatbotBox.classList.toggle('active');
+                    if (chatbotBox.classList.contains('active')) {
+                        chatbotInput.focus();
+                    }
+                });
+                closeChatbotBtn.addEventListener('click', () => {
+                    chatbotBox.classList.remove('active');
+                });
+                const sendChatMessage = () => {
+                    const userMessageText = chatbotInput.value.trim();
+                    if (userMessageText === '') return;
+                    const userMessageDiv = document.createElement('p');
+                    userMessageDiv.classList.add('message', 'user-message');
+                    userMessageDiv.textContent = userMessageText;
+                    chatbotMessages.appendChild(userMessageDiv);
+                    chatbotInput.value = '';
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                    setTimeout(() => {
+                        const botMessageDiv = document.createElement('p');
+                        botMessageDiv.classList.add('message', 'bot-message');
+                        let botResponse = "I'm sorry, I don't understand that. Please try asking about Subhadip's skills, projects, or how to contact him!";
+                        if (userMessageText.toLowerCase().includes('hello') || userMessageText.toLowerCase().includes('hi')) {
+                            botResponse = "Hello there! How can I assist you regarding Subhadip Bera's portfolio?";
+                        } else if (userMessageText.toLowerCase().includes('skill')) {
+                            botResponse = "Subhadip is proficient in HTML, CSS, JavaScript, React, Node.js, and many more! Check out the skills page for details.";
+                        } else if (userMessageText.toLowerCase().includes('project')) {
+                            botResponse = "You can check out his projects on the 'Projects' page or his GitHub profile!";
+                        } else if (userMessageText.toLowerCase().includes('contact') || userMessageText.toLowerCase().includes('email')) {
+                            botResponse = "You can contact Subhadip via email at your.email@example.com or through his LinkedIn profile.";
+                        } else if (userMessageText.toLowerCase().includes('cv') || userMessageText.toLowerCase().includes('resume')) {
+                            botResponse = "You can download Subhadip's CV by clicking the 'Download CV' button on the home page!";
+                        } else if (userMessageText.toLowerCase().includes('certification') || userMessageText.toLowerCase().includes('certificate')) {
+                            botResponse = "Subhadip has certifications in various domains. You can find them on the Certifications page!";
+                        } else if (userMessageText.toLowerCase().includes('achievement') || userMessageText.toLowerCase().includes('award')) {
+                            botResponse = "Subhadip has achieved various milestones and awards. Explore the Achievements page to learn more!";
+                        } else if (userMessageText.toLowerCase().includes('experience') || userMessageText.toLowerCase().includes('internship') || userMessageText.toLowerCase().includes('job')) {
+                             botResponse = "Subhadip's experience includes internships, workshops, and a job. You can view the details on this page!";
+                        }
+
+                        botMessageDiv.textContent = botResponse;
+                        chatbotMessages.appendChild(botMessageDiv);
+                        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                    }, 1000);
+                };
+                chatbotSendBtn.addEventListener('click', sendChatMessage);
+                chatbotInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        sendChatMessage();
+                    }
+                });
+            }
+
+            // --- Experience Data ---
+            const experienceData = {
+                internship: [
+                    {
+                        company: "Tech Solutions Pvt. Ltd.",
+                        date: "Jan 2023 - Jun 2023",
+                        skills: ["React", "Node.js", "Express", "MongoDB"],
+                        about: "Worked as a full-stack development intern, contributing to a project management tool. I was responsible for building REST APIs and developing user interface components.",
+                        photos: [
+                            "https://picsum.photos/seed/internship1/600/400",
+                            "https://picsum.photos/seed/internship2/600/400",
+                            "https://picsum.photos/seed/internship3/600/400",
+                            "https://picsum.photos/seed/internship4/600/400",
+                            "https://picsum.photos/seed/internship5/600/400"
+                        ]
+                    },
+                    {
+                        company: "Digital Innovators Inc.",
+                        date: "Jul 2022 - Dec 2022",
+                        skills: ["HTML", "CSS", "JavaScript", "UI/UX"],
+                        about: "Focused on front-end development, revamping the company's marketing website to improve performance and user experience. Collaborated with the design team to implement new features.",
+                        photos: [
+                            "https://picsum.photos/seed/internship6/600/400",
+                            "https://picsum.photos/seed/internship7/600/400",
+                            "https://picsum.photos/seed/internship8/600/400",
+                            "https://picsum.photos/seed/internship9/600/400",
+                            "https://picsum.photos/seed/internship10/600/400"
+                        ]
+                    }
+                ],
+                workshop: [
+                    {
+                        company: "Google Developers Group",
+                        date: "Nov 2023",
+                        skills: ["Firebase", "GCP", "Cloud Functions"],
+                        about: "Participated in a workshop on serverless development using Google Cloud Platform and Firebase. Built a simple real-time chat application to demonstrate the concepts.",
+                        photos: [
+                            "https://picsum.photos/seed/workshop1/600/400",
+                            "https://picsum.photos/seed/workshop2/600/400",
+                            "https://picsum.photos/seed/workshop3/600/400",
+                            "https://picsum.photos/seed/workshop4/600/400",
+                            "https://picsum.photos/seed/workshop5/600/400"
+                        ]
+                    },
+                    {
+                        company: "Microsoft AI Workshop",
+                        date: "Apr 2023",
+                        skills: ["Python", "Machine Learning", "Azure"],
+                        about: "A hands-on workshop focused on building and deploying machine learning models on Microsoft Azure. Gained practical experience with data preprocessing and model training.",
+                        photos: [
+                            "https://picsum.photos/seed/workshop6/600/400",
+                            "https://picsum.photos/seed/workshop7/600/400",
+                            "https://picsum.photos/seed/workshop8/600/400",
+                            "https://picsum.photos/seed/workshop9/600/400",
+                            "https://picsum.photos/seed/workshop10/600/400"
+                        ]
+                    }
+                ],
+                job: [
+                    {
+                        company: "Senior Software Engineer at Global Corp",
+                        date: "Jul 2024 - Present",
+                        skills: ["React", "Next.js", "GraphQL", "AWS"],
+                        about: "Leading the development of a new microservice for a global e-commerce platform. Mentoring junior developers and ensuring code quality through peer reviews.",
+                        photos: [
+                            "https://picsum.photos/seed/job1/600/400",
+                            "https://picsum.photos/seed/job2/600/400",
+                            "https://picsum.photos/seed/job3/600/400",
+                            "https://picsum.photos/seed/job4/600/400",
+                            "https://picsum.photos/seed/job5/600/400"
+                        ]
+                    },
+                    {
+                        company: "Junior Developer at Startup Labs",
+                        date: "Jan 2024 - Jun 2024",
+                        skills: ["JavaScript", "HTML", "CSS", "Agile"],
+                        about: "Developed and maintained features for a fast-paced fintech application. Worked within an agile team, participating in daily stand-ups and sprint retrospectives.",
+                        photos: [
+                            "https://picsum.photos/seed/job6/600/400",
+                            "https://picsum.photos/seed/job7/600/400",
+                            "https://picsum.photos/seed/job8/600/400",
+                            "https://picsum.photos/seed/job9/600/400",
+                            "https://picsum.photos/seed/job10/600/400"
+                        ]
+                    }
+                ]
+            };
+            
+            // --- Page Navigation & DOM Elements ---
+            const overviewPage = document.getElementById('experienceOverviewPage');
+            const detailPage = document.getElementById('experienceDetailPage');
+            const detailGrid = document.getElementById('detailGrid');
+            const detailTitle = document.getElementById('detailTitle');
+            const backButton = document.getElementById('backToOverview');
+            
+            const lightboxOverlay = document.getElementById('lightboxOverlay');
+            const lightboxImage = document.getElementById('lightboxImage');
+            const lightboxClose = document.getElementById('lightboxClose');
+            
+            // Function to generate and render experience cards
+            function renderDetailCards(sectionName) {
+                detailGrid.innerHTML = ''; // Clear previous content
+                const sectionData = experienceData[sectionName.toLowerCase()];
+                if (sectionData) {
+                    detailTitle.textContent = `${sectionName} Experience`;
+                    sectionData.forEach(entry => {
+                        const cardContainer = document.createElement('div');
+                        cardContainer.classList.add('flip-card-container');
+                        
+                        let imagesHtml = '';
+                        if (entry.photos && entry.photos.length > 0) {
+                            imagesHtml = `<div class="flip-card-image-grid">`;
+                            entry.photos.forEach(photoUrl => {
+                                imagesHtml += `
+                                    <div class="flip-card-image" data-full-src="${photoUrl}">
+                                        <img src="${photoUrl.replace(/\/\d+\/\d+$/, '/100/100')}" alt="Experience photo">
+                                    </div>
+                                `;
+                            });
+                            imagesHtml += `</div>`;
+                        }
+
+                        cardContainer.innerHTML = `
+                            <div class="flip-card">
+                                <div class="flip-card-front">
+                                    <div class="card-content">
+                                        <h4>${entry.company}</h4>
+                                        <p><b>Date:</b> ${entry.date}</p>
+                                        <p><b>Skills:</b> ${entry.skills.join(', ')}</p>
+                                        <p><b>About:</b> ${entry.about.substring(0, 100)}...</p>
+                                    </div>
+                                    <i class="fas fa-info-circle fa-2x" style="color: var(--accent-light);"></i>
+                                    <p style="margin-top: 10px; color: var(--accent-light);">Click to view more</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <div class="card-content">
+                                        <h4>${entry.company}</h4>
+                                        <span><b>Date:</b> ${entry.date}</span>
+                                        <span><b>Skills:</b> ${entry.skills.join(', ')}</span>
+                                        <span><b>About:</b> ${entry.about}</span>
+                                    </div>
+                                    ${imagesHtml}
+                                </div>
+                            </div>
+                        `;
+                        detailGrid.appendChild(cardContainer);
+                    });
+                }
+                
+                // Attach flip card listener
+                document.querySelectorAll('.flip-card').forEach(card => {
+                    card.addEventListener('click', (event) => {
+                        // Check if the click was on an image or the close button inside the flip-card-back
+                        if (!event.target.closest('.flip-card-image')) {
+                            card.classList.toggle('flipped');
+                        }
+                    });
+                });
+                
+                // Attach lightbox listeners to newly created images
+                document.querySelectorAll('.flip-card-image').forEach(item => {
+                    item.addEventListener('click', function(event) {
+                        event.stopPropagation(); // Prevent card from flipping when image is clicked
+                        const fullSrc = this.getAttribute('data-full-src');
+                        lightboxImage.src = fullSrc;
+                        lightboxOverlay.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    });
+                });
+            }
+            
+            // Event listeners for main section cards
+            document.querySelectorAll('.section-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const section = card.getAttribute('data-section');
+                    overviewPage.classList.remove('active');
+                    detailPage.classList.add('active');
+                    document.body.style.overflowY = 'auto'; // Re-enable scrolling on the new page
+                    renderDetailCards(section);
+                });
+            });
+            
+            // Event listener for the back button
+            backButton.addEventListener('click', () => {
+                detailPage.classList.remove('active');
+                overviewPage.classList.add('active');
+            });
+            
+            // Event listeners for the lightbox
+            lightboxClose.addEventListener('click', () => {
+                lightboxOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            lightboxOverlay.addEventListener('click', (event) => {
+                if (event.target === lightboxOverlay) {
+                    lightboxOverlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
