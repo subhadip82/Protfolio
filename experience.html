@@ -303,10 +303,10 @@
 
         .page-content {
             width: 100%;
-            max-width: 1200px; /* New: Added max-width to prevent stretching */
+            max-width: 1200px;
             padding: 0 20px;
             transition: opacity 0.5s ease-in-out;
-            display: none; /* All pages are hidden by default */
+            display: none;
         }
 
         .page-content.active {
@@ -388,15 +388,21 @@
             align-items: center;
         }
         
+        /* Fixed Back Button Style */
         .back-button {
+            /* Ensures the button only takes up as much space as it needs */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            /* Sets a fixed size */
+            min-width: 100px;
+            padding: 10px 20px;
+            
             background: var(--accent-color);
             color: var(--text-light);
-            padding: 10px 20px;
             border-radius: 25px;
             cursor: pointer;
             margin-bottom: 30px;
-            display: inline-flex;
-            align-items: center;
             gap: 10px;
             transition: background-color 0.3s ease, transform 0.3s ease;
             text-decoration: none;
@@ -605,7 +611,7 @@
         /* --- Responsive Media Queries --- */
         @media (max-width: 768px) {
             .experience-title {
-                font-size: 2rem; /* Adjusted for better mobile fit */
+                font-size: 2rem;
             }
             .section-card h3 {
                 font-size: 1.8rem;
@@ -619,10 +625,10 @@
             .flip-card-container {
                 height: auto;
                 min-height: 500px;
-                margin-bottom: 20px; /* Added spacing between cards */
+                margin-bottom: 20px;
             }
             .flip-card-front, .flip-card-back {
-                padding: 20px; /* Reduced padding on mobile */
+                padding: 20px;
             }
             .flip-card-back .card-content {
                 text-align: center;
@@ -631,7 +637,7 @@
                 flex-direction: row;
                 justify-content: center;
                 align-items: center;
-                gap: 10px; /* Reduced gap between images */
+                gap: 10px;
             }
             .flip-card-image {
                 width: 70px;
@@ -652,7 +658,6 @@
                 <li><a href="education.html">Education</a></li>
                 <li><a href="skill.html">Skills</a></li>
                 <li><a href="project.html">Projects</a></li>
-                <li><a href="experience.html">Experience</a></li>
                 <li><a href="certification.html">Certifications</a></li>
                 <li><a href="achievements.html">Achievements</a></li>
                 <li><a href="feedback.html">Feedback</a></li>
